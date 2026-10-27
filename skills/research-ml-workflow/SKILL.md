@@ -21,6 +21,10 @@ Automatically use the `research_strict` assurance profile. Start from a v0.3 res
 
 For research audits, thesis/paper review, research-plan evaluation, or interim/final defense preparation, also use [research-review-workflow](../research-review-workflow/SKILL.md). It adds source acquisition, argument/novelty/domain review, constructive findings and adaptive questions. Review documents do not replace the strict numerical validation gates below.
 
+## User profile
+
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+
 ## Recommended task graph
 
 1. **Data auditor**: profile sources, sample counts, units, missingness, duplicates, leakage risks, and permitted transformations.

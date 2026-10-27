@@ -15,6 +15,10 @@ description: Coordinate complex research, software, or job-search work with boun
 
 Use this skill when a request has independent workstreams, a research-to-deliverable pipeline, or a meaningful review or approval boundary. Handle a simple question, one-file edit, or strictly sequential change directly.
 
+## User profile
+
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+
 ## Choose the direct path first
 
 For a small, mechanically verifiable operation with no dependencies, parallel work, semantic risk, or approval boundary, the lead performs and checks it directly. Do not create a manifest or result contract, read orchestration schemas, delegate a worker, or wait for a reviewer just to format a file or run an existing check. Report the checked artifact and finish. This path does not enter the structured integration workflow below.

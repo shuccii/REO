@@ -15,9 +15,13 @@ description: Apply user-registered local laboratory policies when preparing auth
 
 Use for laboratory authorship, conference participation, or research presentation preparation when the user has registered a laboratory policy. Also use when adding or updating those policies.
 
+## User profile
+
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+
 ## Resolve the applicable policy
 
-Read the applicable workspace `AGENTS.md` and its policy links first. If needed, read the local registry `~/.config/lab-advisor/lab-policies.md` (resolve against the actual user's home directory) and then the complete applicable policy document. Match the registry's workspace scope or the user's explicit laboratory identification; do not apply one laboratory's policy to all research. No registry means no registered default, not that faculty approval exists. Report missing or inaccessible policy sources rather than inventing rules.
+Read the applicable workspace `AGENTS.md` and its policy links first. If needed, read the local registry `~/.config/reo/lab-policies.md` (resolve against the actual user's home directory) and then the complete applicable policy document. Match the registry's workspace scope or the user's explicit laboratory identification; do not apply one laboratory's policy to all research. No registry means no registered default, not that faculty approval exists. Report missing or inaccessible policy sources rather than inventing rules.
 
 Keep laboratory names, private source paths, PDFs, and substantive internal rules outside the distributable plugin. The registry is user-local configuration and is not bundled with the plugin. Public sharing of the plugin does not share that configuration.
 

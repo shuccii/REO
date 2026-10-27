@@ -15,6 +15,10 @@ description: Audit scientific research, constructively review theses or papers, 
 
 Use when asked to audit research, act as a demanding academic reviewer, evaluate a thesis or research plan, prepare for professor questions, or rehearse an interim/final defense. Support experimentally, theoretically, computationally, and literature-based research; use ML-specific checks only when applicable. This is evidence-based advisory review, not actual faculty approval, a degree decision, or a claim of professor-equivalent expertise.
 
+## User profile
+
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+
 ## Select the task and evidence
 
 Choose `audit` (trace results/code/data), `peer_review` (review a manuscript), `defense` (prepare questions or interactive oral rehearsal), or `supervision` (evaluate a plan and choose next experiments). Combine modes when useful. Establish stage, research question, intended claims, audience, relevant artifact versions, and time/resources. Proceed with available evidence; request only information that changes the assessment. An interim review evaluates justified progress, remaining risks and feasibility, not completed-thesis expectations.

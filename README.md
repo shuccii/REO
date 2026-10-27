@@ -1,4 +1,4 @@
-# Lab Advisor(研究室アドバイザー)
+# Re.O(レオ)
 
 研究・機械学習・ソフトウェア開発・就職活動などの複雑なタスクを、根拠、検証、レビュー、承認境界を明確にしながら進めるためのプラグインです。
 
@@ -41,7 +41,7 @@ uv pip install -r requirements/bio.txt       # 生物(Biopython)
 
 ## はじめに(初回設定)
 
-最初に `setup-profile` スキルを使い、分野・手法・段階・所属大学を数問で答えてください。答えは `~/.config/lab-advisor/profile.md` に保存され、以後のスキルが読みます。プロファイルはこのリポジトリの外に置かれ、更新の影響を受けません。
+最初に `setup-profile` スキルを使い、分野・手法・段階・所属大学を数問で答えてください。答えは `~/.config/reo/profile.md` に保存されます。研究関係のスキル(研究レビュー、研究ML、修論審査、研究室ルール、作業の分担)は、作業の最初にこのファイルを自動で読み、分野に合う確認項目を選びます。プロファイルがなくても動き、そのときは初回設定を一度だけ案内します。中身は `python3 tools/reo_profile.py` で確認できます。プロファイルはこのリポジトリの外に置かれ、更新の影響を受けません。
 
 ## 主なワークフロー
 
@@ -118,7 +118,7 @@ python3 -B scripts/validate_research_review.py --json review-report.json
 ### `lab-policy-workflow`
 
 - ローカル登録された研究室規程を、著者・貢献整理、学会参加計画、要旨・ポスター・口頭発表準備へ適用
-- 作業領域の `AGENTS.md` と、必要に応じ `~/.config/lab-advisor/lab-policies.md` から適用対象を解決
+- 作業領域の `AGENTS.md` と、必要に応じ `~/.config/reo/lab-policies.md` から適用対象を解決
 - 規程本文・原本PDF・個人の参照パスはプラグインに同梱せず、研究室ごとの適用範囲を維持
 - 教員確認・発表練習・承認状態と、ユーザーの提出・送信許可を区別
 
@@ -139,8 +139,8 @@ python3 -B scripts/validate_research_review.py --json review-report.json
 ## 取得と検証
 
 ```bash
-git clone https://github.com/shuccii/lab_advisor.git
-cd lab_advisor
+git clone https://github.com/shuccii/REO.git
+cd REO
 python3 scripts/run_checks.py
 ```
 

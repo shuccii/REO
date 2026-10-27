@@ -19,6 +19,10 @@ Use when a student prepares a master's thesis, its final presentation, the oral 
 
 This workflow prepares drafts and practice. It never submits, uploads, registers or contacts faculty, never writes the thesis in place of the student unless AI drafting mode is enabled under its preconditions, and never predicts a pass. Use [research-review-workflow](../research-review-workflow/SKILL.md) for the substantive audit of claims and for interactive rehearsal. Use [lab-policy-workflow](../lab-policy-workflow/SKILL.md) and the user's local policy files for laboratory rules; never copy private rules into shared artifacts.
 
+## User profile
+
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+
 ## Structure
 
 One preparation run has a fact sheet, a schedule, an issue log and four tracks. Load only the reference for the track in hand. Read the thesis once into a skeleton (Track R, Tier 0) and reuse it instead of re-reading the full text in every track.
