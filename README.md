@@ -79,7 +79,7 @@ python3 -B scripts/validate_research_review.py --json review-report.json
 ### `lab-policy-workflow`
 
 - ローカル登録された研究室規程を、著者・貢献整理、学会参加計画、要旨・ポスター・口頭発表準備へ適用
-- 作業領域の `AGENTS.md` と、必要に応じ `~/.config/research-dev-orchestrator/lab-policies.md` から適用対象を解決
+- 作業領域の `AGENTS.md` と、必要に応じ `~/.config/lab-advisor/lab-policies.md` から適用対象を解決
 - 規程本文・原本PDF・個人の参照パスはプラグインに同梱せず、研究室ごとの適用範囲を維持
 - 教員確認・発表練習・承認状態と、ユーザーの提出・送信許可を区別
 
