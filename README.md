@@ -62,7 +62,7 @@ claude plugin marketplace update reo
 claude plugin update reo@reo
 ```
 
-Codex(取り込み直したあと、もう一度 `add` すると新しい版が入ります):
+Codex(取り込み直したあと、もう一度 `add` します。版が上がる場合の動作は、まだ確かめていません):
 
 ```bash
 codex plugin marketplace upgrade reo
