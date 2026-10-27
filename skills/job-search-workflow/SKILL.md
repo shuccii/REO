@@ -5,6 +5,14 @@ description: Research opportunities and prepare accurate job-search materials wh
 
 # Job Search Workflow
 
+## 概要(日本語)
+
+就職活動の情報を整理し、応募書類を事実に基づいて作るスキルです。
+
+- 公式情報を優先して企業・求人の情報を確認します。
+- 応募書類とプロフィールの事実の整合性と、個人情報の扱いを点検します。
+- 応募フォームへの入力と最終送信は分けて扱い、送信前に必ず本人の確認を取ります。
+
 Use this skill for company research, opportunity tracking, application-material drafting, portfolio review, deadline checks, and form-preparation handoffs.
 
 ## Task graph

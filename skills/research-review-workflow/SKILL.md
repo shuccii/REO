@@ -5,6 +5,14 @@ description: Audit scientific research, constructively review theses or papers, 
 
 # Research Review Workflow
 
+## 概要(日本語)
+
+研究の監査、論文・修論の建設的な査読、発表の模擬質疑を行うスキルです。
+
+- 主張と根拠の対応、代替の説明、必要な追加検証を整理します。
+- 研究意義・新規性・方法・データ・統計・再現性・倫理など10の観点で確認します。
+- 模擬質疑では、回答を待ってから回答に応じて追加の質問をします。
+
 Use when asked to audit research, act as a demanding academic reviewer, evaluate a thesis or research plan, prepare for professor questions, or rehearse an interim/final defense. Support experimentally, theoretically, computationally, and literature-based research; use ML-specific checks only when applicable. This is evidence-based advisory review, not actual faculty approval, a degree decision, or a claim of professor-equivalent expertise.
 
 ## Select the task and evidence

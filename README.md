@@ -1,4 +1,4 @@
-# Research Dev Orchestrator
+# Lab Advisor(研究室アドバイザー)
 
 研究・機械学習・ソフトウェア開発・就職活動などの複雑なタスクを、根拠、検証、レビュー、承認境界を明確にしながら進めるためのプラグインです。
 
@@ -100,8 +100,8 @@ python3 -B scripts/validate_research_review.py --json review-report.json
 ## 取得と検証
 
 ```bash
-git clone https://github.com/shuccii/research-dev-orchestrator.git
-cd research-dev-orchestrator
+git clone https://github.com/shuccii/lab_advisor.git
+cd lab_advisor
 python3 scripts/run_checks.py
 ```
 

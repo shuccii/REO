@@ -5,6 +5,14 @@ description: Build, execute, validate, and communicate research or analysis with
 
 # Research ML Workflow
 
+## 概要(日本語)
+
+機械学習や解析の研究を、データリークなどを防ぎながら厳密に検証するスキルです。
+
+- 学習データと評価データの分け方(グループ単位の分割を含む)を先に固定します。
+- 前処理や特徴量の選択は、学習データの中だけで行います。
+- 予測の根拠と不確かさを記録し、因果的な解釈と予測上の関連を分けて書きます。
+
 Use this skill when the user asks for machine-learning research, experiment execution, result validation, interpretation, figures, or slides.
 
 For laboratory authorship, conference plans, abstracts, posters, or research presentations, also read [lab-policy-workflow](../lab-policy-workflow/SKILL.md) and resolve any applicable user-local policy before planning the deliverable. Scientific validation does not replace faculty review, rehearsal, or presentation approval required by that policy.

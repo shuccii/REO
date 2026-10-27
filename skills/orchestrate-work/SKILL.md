@@ -5,6 +5,14 @@ description: Coordinate complex research, software, or job-search work with boun
 
 # Orchestrate Work
 
+## 概要(日本語)
+
+複数の作業を分担し、結果を検証してから統合するためのスキルです。
+
+- 作業を依存関係の順に分け、必要な場合だけ並列で進めます。
+- 作業結果は機械可読な形式で受け取り、独立したレビューを通してから統合します。
+- 公開・提出・送信・デプロイなどは、必ず承認が必要な操作として扱います。
+
 Use this skill when a request has independent workstreams, a research-to-deliverable pipeline, or a meaningful review or approval boundary. Handle a simple question, one-file edit, or strictly sequential change directly.
 
 ## Choose the direct path first

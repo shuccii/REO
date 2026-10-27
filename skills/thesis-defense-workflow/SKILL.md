@@ -5,6 +5,14 @@ description: Prepare a graduate student for a master's thesis defense (thesis wr
 
 # Thesis Defense Workflow
 
+## 概要(日本語)
+
+修士論文の執筆、最終発表、口頭試問の準備を、発表日から逆算して進めるスキルです。
+
+- NAIST の公開情報(審査基準の6項目、日程)を含みます。未確認の事項は「未確認」と書き、指導教員に確認する項目にします。
+- 執筆・スライド・想定質問・研究レビューの4つの流れから、必要なものだけを使います。
+- 提出や教員への連絡は行わず、合否の予測もしません。
+
 Use when a student prepares a master's thesis, its final presentation, the oral examination, or a rehearsal for them. Default target: a science/engineering master's program. For NAIST read [NAIST milestones and criteria](references/naist.md). For doctoral defenses, apply the same tracks and add the doctoral items noted there.
 
 This workflow prepares drafts and practice. It never submits, uploads, registers or contacts faculty, never writes the thesis in place of the student unless AI drafting mode is enabled under its preconditions, and never predicts a pass. Use [research-review-workflow](../research-review-workflow/SKILL.md) for the substantive audit of claims and for interactive rehearsal. Use [lab-policy-workflow](../lab-policy-workflow/SKILL.md) and the user's local policy files for laboratory rules; never copy private rules into shared artifacts.

@@ -1,19 +1,19 @@
 {
-  "name": "research-dev-orchestrator",
+  "name": "lab_advisor",
   "version": "0.6.3",
-  "description": "Evidence-backed research orchestration, constructive thesis review, research audits, defense rehearsal and master's thesis defense preparation.",
+  "description": "研究・機械学習・ソフトウェア開発・就職活動などの複雑な作業を、根拠・検証・レビュー・承認の境界を明確にして進めるためのプラグインです。",
   "author": {
     "name": "Shuichi Tani"
   },
   "skills": "./skills/",
   "interface": {
-    "displayName": "Research Dev Orchestrator",
-    "shortDescription": "Audit research, review theses, rehearse defenses, and verify complex work.",
-    "longDescription": "Provides strict scientific validation and source-grounded advisory research audits, constructive peer review, plan evaluation and adaptive defense questions. Retains lightweight software/job workflows and independent review boundaries.",
-    "developerName": "Local developer",
+    "displayName": "Lab Advisor(研究室アドバイザー)",
+    "shortDescription": "研究の監査、論文の査読、発表の模擬質疑、作業の検証を行います。",
+    "longDescription": "厳密な科学的検証と、根拠に基づく研究の監査・建設的な査読、計画の評価、模擬質疑を提供します。ソフトウェア開発・就職活動の軽量なワークフローと、独立したレビューの境界も備えます。",
+    "developerName": "Shuichi Tani",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "Use Research Dev Orchestrator with evidence, review gates, and explicit approval boundaries."
+    "defaultPrompt": "根拠・検証・レビュー・承認の境界を明確にして、この作業を進めてください。"
   },
   "license": "MIT",
   "developerName": "Shuichi Tani"

@@ -5,6 +5,14 @@ description: Apply user-registered local laboratory policies when preparing auth
 
 # Local Laboratory Policy Workflow
 
+## 概要(日本語)
+
+研究室のルール(著者順・学会参加・発表準備)を、本人が登録した範囲で適用するスキルです。
+
+- 研究室のルールは、本人が作業ディレクトリかローカル設定に登録したものだけを使います。
+- 著者の貢献、学会参加の計画、要旨・ポスター・発表資料の準備に使います。
+- ルールの判断は教員の確認が必要な場合に止まり、提出や送信は行いません。
+
 Use for laboratory authorship, conference participation, or research presentation preparation when the user has registered a laboratory policy. Also use when adding or updating those policies.
 
 ## Resolve the applicable policy

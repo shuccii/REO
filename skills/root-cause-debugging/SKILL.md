@@ -5,6 +5,14 @@ description: Diagnose execution errors, failing tests, stalled work or unexpecte
 
 # Root Cause Debugging
 
+## 概要(日本語)
+
+エラーや数値の異常が起きたとき、当てずっぽうに直さず原因を特定するスキルです。
+
+- まず再現し、正常な例と比べてから、仮説を1つだけ立てて最小の検証をします。
+- NaN や不安定な計算を、データの除外や値の置き換えで隠しません。
+- 修正が3回うまくいかなければ、前提と計画をいったん見直します。
+
 Written for Codex. Its approach draws on the systematic-debugging skill of Superpowers. Use the available tools and the target project's constraints; no Superpowers installation is required.
 
 ## Reproduce before repairing

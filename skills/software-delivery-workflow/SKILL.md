@@ -5,6 +5,14 @@ description: Deliver web or app changes through scoped planning, isolated implem
 
 # Software Delivery Workflow
 
+## 概要(日本語)
+
+Web やアプリの変更を、計画・実装・テスト・レビュー・リリース準備まで安全に進めるスキルです。
+
+- 変更範囲とデータの境界を先に決めます。
+- 秘密情報・認証情報・ユーザーデータを成果物や Git の履歴に含めないよう確認します。
+- リリースの前に承認ゲートを通します。
+
 Use this skill for Web, iOS, Android, backend, or full-stack work with multiple independent workstreams.
 
 ## Task graph
