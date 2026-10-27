@@ -52,12 +52,24 @@ codex plugin add reo@reo
 
 ### 更新
 
+Claude Code:
+
 ```bash
 claude plugin marketplace update reo
 ```
 
 ```bash
+claude plugin update reo@reo
+```
+
+Codex(取り込み直したあと、もう一度 `add` すると新しい版が入ります):
+
+```bash
 codex plugin marketplace upgrade reo
+```
+
+```bash
+codex plugin add reo@reo
 ```
 
 プロファイル(`~/.config/reo/`)はプラグインの外にあるので、更新しても消えません。
