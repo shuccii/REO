@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0
+
+- 研究アドバイザーに範囲を絞り、就活(`job-search-workflow`)とソフトウェア開発(`software-delivery-workflow`)のスキルを削除。基準の記録が必要で動かなくなっていた評価ハーネス(`benchmarks/`)も削除。
+- Claude Code 用の `.claude-plugin/`(plugin.json, marketplace.json)を追加。Claude Code と Codex で導入から初回実行までを確認し、README に手順を記載。
+- プロファイルがない場合は、原稿の内容から分野・手法・段階を推定して確認項目を選び、推定したことを明記するように変更。
+- 段階ごとの期待水準(`phase-expectations.md`)を追加。
+- 出力見本(`docs/EXAMPLE.md`)を追加。架空の修論の抜粋を実際に点検した記録。
+- フィードバックの受付先と、誰が読めるかを明記。
+
 ## 0.8.0
 
 - 名称を Re.O(レオ)に変更。リポジトリ名は `REO`、プラグイン名は `reo`、設定の保存先は `~/.config/reo/`。

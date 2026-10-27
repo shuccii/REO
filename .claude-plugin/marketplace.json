@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "reo",
+  "description": "Re.O(レオ)研究アドバイザーの配布用マーケットプレイス",
+  "owner": {
+    "name": "Shuichi Tani"
+  },
+  "plugins": [
+    {
+      "name": "reo",
+      "description": "理系の研究(工学・生物・化学・物理・材料・情報など)の論文・修論を、主張と根拠の対応から点検し、模擬質疑まで支援する研究アドバイザーです。",
+      "author": {
+        "name": "Shuichi Tani"
+      },
+      "category": "productivity",
+      "source": "./",
+      "version": "0.9.0"
+    }
+  ]
+}

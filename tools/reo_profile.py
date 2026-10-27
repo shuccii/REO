@@ -78,6 +78,7 @@ def load(path):
         'unset': [key for key in FIELDS.values() if not values.get(key)],
         'probes': [f'{PROBE_DIR}/{name}' for name in probes],
         'use_research_ml_workflow': any(word in methods for word in ('機械学習', 'データ解析')),
+        'phase_expectations': 'skills/research-review-workflow/references/phase-expectations.md',
         'note': 'The current request overrides the profile. Say which probes were used.',
     }
 

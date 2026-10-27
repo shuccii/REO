@@ -45,6 +45,20 @@ class DisciplineCoverageTests(unittest.TestCase):
                 self.assertIn('do not block the task', text)
 
 
+    def test_phase_expectations_are_linked_and_keep_correctness(self):
+        review = (ROOT / 'skills/research-review-workflow/SKILL.md').read_text()
+        self.assertIn('references/phase-expectations.md', review)
+        text = (ROOT / 'skills/research-review-workflow/references/phase-expectations.md').read_text()
+        for phase in ('学生実験レポート', '輪講', '卒論', '修論', '論文執筆', '研究の立ち上げ'):
+            self.assertIn(phase, text)
+        self.assertIn('Never lower a standard for correctness', text)
+
+    def test_missing_profile_falls_back_to_inference(self):
+        for name in ('research-review-workflow', 'research-ml-workflow', 'thesis-defense-workflow'):
+            with self.subTest(skill=name):
+                text = (ROOT / f'skills/{name}/SKILL.md').read_text()
+                self.assertIn('infer the field, methods and phase from the material', text)
+
 class ProfileReaderTests(unittest.TestCase):
     def setUp(self):
         import sys

@@ -17,7 +17,7 @@ Use when asked to audit research, act as a demanding academic reviewer, evaluate
 
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Select the task and evidence
 
@@ -27,7 +27,7 @@ Read [evidence acquisition](references/evidence-acquisition.md) before searching
 
 Read [local context and continuity](references/local-context-and-continuity.md) whenever local context or earlier reviews exist. Before substantive assessment, read the configured current-state, known-issues and relevant previous-feedback records, and the stage-relevant institution/laboratory guidance. Read the relevant local domain reference for the target field. Record inspected versions and unavailable inputs; an index link alone is not evidence of reading. Keep historical issues distinct from new findings and verify changes against current artifacts.
 
-Read [assessment rubric](references/assessment-rubric.md) for every substantive review. Use the [discipline probes](references/probes/README.md) for domain checks, and read only the probe files that match the user's field and methods. Use [defense and constructive feedback](references/defense-and-feedback.md) for oral rehearsal, question banks or revision plans. For the whole preparation plan toward a thesis defense, use [thesis-defense-workflow](../thesis-defense-workflow/SKILL.md). [Public source index](references/public-sources.md) records the basis and limits of the rubric; retrieve topic-specific primary research during each review rather than relying on this small static list as a complete knowledge base.
+Read [assessment rubric](references/assessment-rubric.md) for every substantive review. Use the [discipline probes](references/probes/README.md) for domain checks, and read only the probe files that match the user's field and methods. Use [phase expectations](references/phase-expectations.md) to set the expected standard and severity for the user's phase (lab report, journal club, bachelor's, master's, paper or planning). Use [defense and constructive feedback](references/defense-and-feedback.md) for oral rehearsal, question banks or revision plans. For the whole preparation plan toward a thesis defense, use [thesis-defense-workflow](../thesis-defense-workflow/SKILL.md). [Public source index](references/public-sources.md) records the basis and limits of the rubric; retrieve topic-specific primary research during each review rather than relying on this small static list as a complete knowledge base.
 
 ## Reconstruct, challenge, then repair
 

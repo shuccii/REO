@@ -1,6 +1,6 @@
 ---
 name: orchestrate-work
-description: Coordinate complex research, software, or job-search work with bounded parallel tasks, machine-readable evidence, independent review, and explicit approval boundaries.
+description: Coordinate complex research work with bounded parallel tasks, machine-readable evidence, independent review, and explicit approval boundaries.
 ---
 
 # Orchestrate Work
@@ -17,7 +17,7 @@ Use this skill when a request has independent workstreams, a research-to-deliver
 
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, continue with general checks and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Choose the direct path first
 
@@ -58,13 +58,13 @@ For scientific audits, thesis/paper assessment, research-plan critique, and defe
 
 Workers save structured results in the run directory. Validate a manifest before delegation, then validate each result against that same manifest. A completed result without a manifest is not integration-eligible.
 
-Keep execution success separate from scientific, technical, or factual validity. Require independent semantic review for research conclusions, external facts, statistical design, data leakage, security-sensitive work, job claims, and implementation changes. A unit-test pass confirms the tested behavior; it does not establish that a code change preserves intent.
+Keep execution success separate from scientific, technical, or factual validity. Require independent semantic review for research conclusions, external facts, statistical design, data leakage, security-sensitive work, and implementation changes. A unit-test pass confirms the tested behavior; it does not establish that a code change preserves intent.
 
 Give reviewers the run and task contracts, relevant diff, artifact and evidence indexes, prior findings, and references needed for semantic judgment. Review requirements/scope before quality, while retaining mandatory integrity checks and strict-research coverage. Let reviewers retrieve additional source material when required. Use the execution-control procedure for status-sensitive recovery and repeat review; do not retry unchanged blocked work or integrate a lead-authored repair without independent review.
 
 Integrate only results that pass the required checks and review. Before claiming completion, inspect the final artifacts and current diff, map every acceptance criterion to evidence, and run or verify the checks for the current claim as specified in execution-control. Report actual artifacts and checks, deferred minor findings, unresolved limitations, unavailable metrics, and approval-required next actions.
 
-Select `research_strict` automatically for scientific research, statistical inference, machine-learning model construction or evaluation, scientific conclusions, research optimization, and research reporting. Routine business aggregation, log inspection, file transformation, ordinary software, and job-search work stay on `standard` unless the user explicitly requests research-grade assurance. Strict research always uses a manifest and research contract; it never takes the direct path.
+Select `research_strict` automatically for scientific research, statistical inference, machine-learning model construction or evaluation, scientific conclusions, research optimization, and research reporting. Routine aggregation, log inspection, file transformation and ordinary scripting stay on `standard` unless the user explicitly requests research-grade assurance. Strict research always uses a manifest and research contract; it never takes the direct path.
 
 ## Approval and budget boundaries
 

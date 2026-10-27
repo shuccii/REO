@@ -7,6 +7,7 @@ body:
     attributes:
       value: |
         送る前に、会話の全文・ファイルの中身・研究データ・個人名・所属・パスを入れていないか確認してください。
+        この Issue は、開発者と、このリポジトリに招待されたすべての試用者が読めます。
         ここに書いた内容は、スキルの改善のために開発者が読みます。
   - type: dropdown
     id: skill
@@ -18,8 +19,7 @@ body:
         - research-ml-workflow
         - research-review-workflow
         - thesis-defense-workflow
-        - software-delivery-workflow
-        - job-search-workflow
+        - setup-profile
         - lab-policy-workflow
         - その他 / 複数
     validations:
