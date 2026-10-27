@@ -1,0 +1,60 @@
+name: スキルへのフィードバック
+description: 使ってみた感想と改善案を送る(任意・内容は確認してから送信)
+title: "[feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        送る前に、会話の全文・ファイルの中身・研究データ・個人名・所属・パスを入れていないか確認してください。
+        ここに書いた内容は、スキルの改善のために開発者が読みます。
+  - type: dropdown
+    id: skill
+    attributes:
+      label: 対象のスキル
+      options:
+        - orchestrate-work
+        - root-cause-debugging
+        - research-ml-workflow
+        - research-review-workflow
+        - thesis-defense-workflow
+        - software-delivery-workflow
+        - job-search-workflow
+        - lab-policy-workflow
+        - その他 / 複数
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: バージョン
+      placeholder: "例: 0.6.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: usefulness
+    attributes:
+      label: 役に立ったか(1 = 役に立たなかった、5 = とても役に立った)
+      options: ["1", "2", "3", "4", "5"]
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: 何が起きたか
+      description: 期待したこと、実際に起きたこと。ファイル名や内容は書かず、一般的な言い方で書いてください。
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 改善案(任意)
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 送信前の確認
+      options:
+        - label: 個人情報、所属機関の非公開情報、研究室の内部情報、未公開の研究結果を含めていません
+          required: true
+        - label: この内容をスキルの改善に使うことに同意します
+          required: true

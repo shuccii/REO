@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.3.0", "run_id": "run-1", "task_id": "format", "parent_task_id": null, "worker_id": "worker-1",
+  "started_at": "2026-09-02T00:00:00Z", "ended_at": "2026-09-02T00:00:01Z", "status": "completed",
+  "summary": "Formatted the fixture.", "artifacts": ["out.json"], "evidence": ["out.json"], "risks": [], "next_actions": [],
+  "approval": {"required": false, "status": "not_required", "approved_by": null, "operation_succeeded": false},
+  "verification": {"required_checks": ["schema"], "checks": [{"check_id": "schema", "type": "schema", "result": "passed", "observed_by": "harness", "evidence_refs": ["out.json"]}], "validity_review": {"required": false, "status": "not_run", "reviewer_id": null}}
+}

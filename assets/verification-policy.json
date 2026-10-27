@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.3.0",
+  "modes": {
+    "formatting": {"allowed_check_types": ["schema", "hash", "file_exists"], "allowed_observers": ["harness"]},
+    "file_move": {"allowed_check_types": ["hash", "file_exists"], "allowed_observers": ["harness"]},
+    "lint": {"allowed_check_types": ["command"], "allowed_observers": ["harness"]},
+    "unit_test_execution": {"allowed_check_types": ["command"], "allowed_observers": ["harness"]},
+    "render_from_reviewed_metrics": {"allowed_check_types": ["render", "hash", "file_exists"], "allowed_observers": ["harness"]},
+    "semantic_review_required": {"allowed_check_types": ["semantic_review", "command", "schema", "hash", "file_exists", "render"], "allowed_observers": ["harness", "reviewer"]}
+  },
+  "approval_operation_success": {"allowed_check_types": ["command", "file_exists", "semantic_review"], "allowed_observers": ["harness", "reviewer"]}
+}

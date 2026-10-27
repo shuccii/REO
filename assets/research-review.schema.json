@@ -1,0 +1,515 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research review evidence contract 0.4.0",
+  "description": "Validates evidence bookkeeping and readiness consistency only; scientific validity is not established by this contract.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "review_mode",
+    "scope",
+    "sources",
+    "claims",
+    "coverage",
+    "findings",
+    "questions",
+    "unresolved",
+    "next_actions",
+    "readiness",
+    "faculty_approval"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.4.0"
+    },
+    "report_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+    },
+    "review_mode": {
+      "type": "string",
+      "enum": [
+        "audit",
+        "peer_review",
+        "defense",
+        "supervision"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "subject",
+        "included",
+        "excluded",
+        "limitations"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "minItems": 1
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "minItems": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "title",
+          "locator",
+          "access",
+          "observed_at",
+          "status",
+          "limitations"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private"
+            ]
+          },
+          "observed_at": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "read",
+              "partial",
+              "unavailable"
+            ]
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+            },
+            "minItems": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "text",
+          "locator",
+          "status",
+          "evidence_refs",
+          "material_limitations"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "supported",
+              "limited",
+              "unsupported",
+              "invalidated",
+              "not_assessed"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          },
+          "material_limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+            },
+            "minItems": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "dimension",
+          "status",
+          "reason",
+          "evidence_refs"
+        ],
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "question_significance",
+              "novelty_literature",
+              "logic_claims",
+              "design_identifiability",
+              "data_measurement",
+              "statistics_uncertainty",
+              "domain_validity",
+              "reproducibility",
+              "communication_defense",
+              "ethics_governance"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "assessed",
+              "not_assessed",
+              "not_applicable"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 10
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "severity",
+          "state",
+          "resolution",
+          "affected_claims",
+          "evidence_refs",
+          "mechanism",
+          "correction",
+          "acceptance_condition",
+          "resolution_evidence_refs"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "critical",
+              "major",
+              "minor"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "suspected"
+            ]
+          },
+          "resolution": {
+            "type": "string",
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          },
+          "affected_claims": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          },
+          "mechanism": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "correction": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "acceptance_condition": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "resolution_evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "question",
+          "followup",
+          "evidence_needed",
+          "answer_boundary"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "followup": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "evidence_needed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+            },
+            "minItems": 1
+          },
+          "answer_boundary": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "issue",
+          "affected_claims",
+          "evidence_needed",
+          "impact"
+        ],
+        "properties": {
+          "issue": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "affected_claims": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          },
+          "evidence_needed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+            },
+            "minItems": 1
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "material",
+              "minor"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "action",
+          "related_findings",
+          "acceptance_condition"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          },
+          "related_findings": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+            },
+            "minItems": 0
+          },
+          "acceptance_condition": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[\\s\\S]*\\S[\\s\\S]*"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "readiness": {
+      "type": "string",
+      "enum": [
+        "ready_within_scope",
+        "revision_required",
+        "insufficient_evidence"
+      ]
+    },
+    "faculty_approval": {
+      "type": "object",
+      "required": [
+        "status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_assessed",
+            "pending",
+            "confirmed"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[A-Za-z][A-Za-z0-9_.-]*"
+          },
+          "minItems": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

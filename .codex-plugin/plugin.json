@@ -1,0 +1,20 @@
+{
+  "name": "research-dev-orchestrator",
+  "version": "0.6.3",
+  "description": "Evidence-backed research orchestration, constructive thesis review, research audits, defense rehearsal and master's thesis defense preparation.",
+  "author": {
+    "name": "Shuichi Tani"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Research Dev Orchestrator",
+    "shortDescription": "Audit research, review theses, rehearse defenses, and verify complex work.",
+    "longDescription": "Provides strict scientific validation and source-grounded advisory research audits, constructive peer review, plan evaluation and adaptive defense questions. Retains lightweight software/job workflows and independent review boundaries.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Use Research Dev Orchestrator with evidence, review gates, and explicit approval boundaries."
+  },
+  "license": "MIT",
+  "developerName": "Shuichi Tani"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.3.0", "run_id": "research-run",
+  "activities": ["data_audit", "predictive_modeling", "interpretation"],
+  "research_question": "Can the model generalize to unseen material batches?", "sample_unit": "coupon", "independence_unit": "melt batch", "claim_scope": "predictive",
+  "feature_columns": ["composition", "temperature"],
+  "target": {"name": "strength", "kind": "continuous", "data_derived": false, "fits": [], "source_columns": ["strength_mpa"]},
+  "splits": [
+    {"split_id": "outer-1", "sample_id": "s1", "group_id": "g1", "partition": "train"},
+    {"split_id": "outer-1", "sample_id": "s2", "group_id": "g2", "partition": "train"},
+    {"split_id": "outer-1", "sample_id": "s3", "group_id": "g3", "partition": "validation"},
+    {"split_id": "outer-1", "sample_id": "s4", "group_id": "g4", "partition": "test"}
+  ],
+  "transforms": [
+    {"transform_id": "scale", "split_id": "outer-1", "kind": "scaling", "fit_sample_ids": ["s1", "s2"], "output_partition": "train", "synthetic_samples": []},
+    {"transform_id": "smote", "split_id": "outer-1", "kind": "resampling", "fit_sample_ids": ["s1", "s2"], "output_partition": "train", "synthetic_samples": [{"sample_id": "syn1", "parent_sample_ids": ["s1", "s2"]}]}
+  ],
+  "selection_steps": [{"name": "model", "selected_using": "inner_cv"}],
+  "evaluation": {"repeats": 2, "seeds": [11, 29], "baseline_ids": ["mean-baseline"], "raw_predictions_artifact": "raw-predictions.json", "uncertainty_reported": true, "metric_averaging": "mean over group folds", "test_access_count": 1, "test_access_purpose": "final_evaluation"},
+  "data_quality": {"missingness_checked": true, "physical_constraints_checked": true, "category_normalization_checked": true, "missingness_artifact": "missingness.json", "physical_constraints_artifact": "constraints.json", "category_normalization_artifact": "categories.json", "sensitivity_analysis": "not_required"},
+  "optimization": null, "novelty": null,
+  "reproduction": {"data_hash": "sha256:data", "split_artifact": "splits.json", "config_hash": "sha256:config", "code_hash": "sha256:code", "environment_artifact": "environment.txt", "command_artifact": "commands.txt"},
+  "validation_gates": [
+    {"gate_id": "data_quality", "status": "passed", "reason": "Units, missingness, duplicates, categories, and physical constraints were audited.", "evidence_refs": ["missingness.json", "constraints.json", "categories.json"]},
+    {"gate_id": "reproducibility", "status": "passed", "reason": "Data, code, configuration, environment, commands, and splits are identified.", "evidence_refs": ["environment.txt", "commands.txt"]},
+    {"gate_id": "split_integrity", "status": "passed", "reason": "Groups do not cross partitions.", "evidence_refs": ["splits.json"]},
+    {"gate_id": "transform_fit_scope", "status": "passed", "reason": "All learned transforms were fitted on training samples only.", "evidence_refs": ["fit-scope.json"]},
+    {"gate_id": "target_validity", "status": "passed", "reason": "The measured continuous target is independent of feature construction.", "evidence_refs": ["target.json"]},
+    {"gate_id": "statistical_uncertainty", "status": "passed", "reason": "Repeated grouped evaluations and uncertainty are reported.", "evidence_refs": ["raw-predictions.json"]},
+    {"gate_id": "baseline", "status": "passed", "reason": "The candidate model is compared with a frozen mean baseline.", "evidence_refs": ["baselines.json"]},
+    {"gate_id": "interpretation_validity", "status": "passed", "reason": "Interpretation uses only the validated evaluation pipeline.", "evidence_refs": ["interpretation.json"]},
+    {"gate_id": "model_dependence", "status": "passed", "reason": "Material disagreements across candidate models are recorded.", "evidence_refs": ["model-comparison.json"]}
+  ],
+  "products": [
+    {"artifact_id": "metrics", "kind": "metric", "depends_on": ["data_quality", "split_integrity", "transform_fit_scope", "target_validity", "statistical_uncertainty", "baseline"], "status": "valid"},
+    {"artifact_id": "explanation", "kind": "interpretation", "depends_on": ["metrics", "interpretation_validity", "model_dependence"], "status": "valid"},
+    {"artifact_id": "conclusion", "kind": "claim", "depends_on": ["explanation", "reproducibility"], "status": "valid"}
+  ]
+}

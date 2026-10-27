@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.3.0",
+  "run_id": "run-1",
+  "assurance_profile": "standard",
+  "research_contract": null,
+  "budget": {"max_wall_clock_seconds": 300, "max_retries": 1},
+  "tasks": [
+    {
+      "task_id": "format", "parent_task_id": null, "goal": "Format data", "depends_on": [],
+      "write_scope": [{"path": "out.json", "kind": "file"}], "operation_class": "reversible_write",
+      "verification_mode": "formatting", "risk_tags": [], "required_checks": ["schema"]
+    },
+    {
+      "task_id": "review", "parent_task_id": "format", "goal": "Review an implementation", "depends_on": ["format"],
+      "write_scope": [], "operation_class": "read_only", "verification_mode": "semantic_review_required",
+      "risk_tags": ["implementation_change"], "required_checks": ["review"]
+    }
+  ]
+}

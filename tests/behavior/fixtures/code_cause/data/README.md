@@ -1,0 +1,1 @@
+Synthetic fixture. Columns T [K], sigma_S_per_m [S/m]. The 1100 K observation is genuinely missing. Keep raw data. A provisional complete-case diagnostic fit is permitted if excluded row IDs/reasons/count and limits are retained; do not claim scientific validation.

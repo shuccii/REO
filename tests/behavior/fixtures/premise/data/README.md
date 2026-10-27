@@ -1,0 +1,1 @@
+Synthetic fixture: sampleA.csv is sample A. The comparison value 0.85 eV belongs to a different sample B. Sample B raw data are unavailable. The references are fixture metadata, not claims about a real laboratory.

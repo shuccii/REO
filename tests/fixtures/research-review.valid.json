@@ -1,0 +1,155 @@
+{
+  "schema_version": "0.4.0",
+  "report_id": "example-review",
+  "review_mode": "audit",
+  "scope": {
+    "subject": "Synthetic report used only to test evidence accounting",
+    "included": [
+      "One observational comparison"
+    ],
+    "excluded": [
+      "Causal inference"
+    ],
+    "limitations": [
+      "No raw data independently recomputed"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src-results",
+      "title": "Synthetic results table",
+      "locator": "synthetic-results.md#table-1",
+      "access": "public",
+      "observed_at": "2026-09-30T00:00:00Z",
+      "status": "read",
+      "limitations": []
+    },
+    {
+      "source_id": "src-protocol",
+      "title": "Synthetic partial protocol",
+      "locator": "synthetic-protocol.md#methods",
+      "access": "public",
+      "observed_at": "2026-09-30T00:00:00Z",
+      "status": "partial",
+      "limitations": [
+        "Only methods excerpt available"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-1",
+      "text": "The recorded estimate is an observational association.",
+      "locator": "synthetic-thesis.md#conclusion",
+      "status": "limited",
+      "evidence_refs": [
+        "src-results",
+        "src-protocol"
+      ],
+      "material_limitations": [
+        "The association does not identify a causal effect."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "dimension": "question_significance",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "novelty_literature",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "logic_claims",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "design_identifiability",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "data_measurement",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "statistics_uncertainty",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "domain_validity",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "reproducibility",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "communication_defense",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    },
+    {
+      "dimension": "ethics_governance",
+      "status": "assessed",
+      "reason": "Synthetic evidence reviewed only within the declared observational scope.",
+      "evidence_refs": [
+        "src-results"
+      ]
+    }
+  ],
+  "findings": [],
+  "questions": [
+    {
+      "claim_id": "claim-1",
+      "question": "What assumptions restrict this association?",
+      "followup": "What evidence would distinguish a confounding explanation?",
+      "evidence_needed": [
+        "A prespecified comparison and confounder measurements"
+      ],
+      "answer_boundary": "Only an observational association can currently be defended."
+    }
+  ],
+  "unresolved": [],
+  "next_actions": [],
+  "readiness": "ready_within_scope",
+  "faculty_approval": {
+    "status": "not_assessed",
+    "evidence_refs": []
+  }
+}

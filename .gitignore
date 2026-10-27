@@ -1,0 +1,8 @@
+__pycache__/
+.DS_Store
+*.pyc
+.venv*/
+benchmarks/private.local.*
+runs/
+baseline/raw/
+benchmark-results/**/raw/

@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.3.0", "run_id": "run-1", "task_id": "format", "parent_task_id": null,
+  "started_at": "2026-09-02T00:00:00Z", "ended_at": "2026-09-02T00:00:01Z", "status": "needs_revision",
+  "summary": "Schema check failed.", "artifacts": [], "evidence": ["validator.log"], "risks": ["Output is incomplete"], "next_actions": ["Correct the output"],
+  "approval": {"required": false, "status": "not_required", "approved_by": null, "operation_succeeded": false},
+  "verification": {"required_checks": ["schema"], "checks": [{"check_id": "schema", "type": "schema", "result": "failed", "observed_by": "harness", "evidence_refs": ["validator.log"]}], "validity_review": {"required": false, "status": "not_run", "reviewer_id": null}}
+}

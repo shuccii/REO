@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research Dev Orchestrator strict research contract v0.3",
+  "type": "object",
+  "required": ["schema_version", "run_id", "activities", "research_question", "sample_unit", "independence_unit", "claim_scope", "feature_columns", "target", "splits", "transforms", "selection_steps", "evaluation", "data_quality", "reproduction", "validation_gates", "products"],
+  "properties": {
+    "schema_version": {"const": "0.3.0"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "activities": {"type": "array", "minItems": 1, "items": {"enum": ["data_audit", "predictive_modeling", "interpretation", "optimization", "prospective_claim", "reporting"]}},
+    "research_question": {"type": "string", "minLength": 1},
+    "sample_unit": {"type": "string", "minLength": 1},
+    "independence_unit": {"type": "string", "minLength": 1},
+    "claim_scope": {"enum": ["descriptive", "exploratory", "predictive", "causal", "optimization", "prospective"]},
+    "feature_columns": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "target": {"type": "object", "required": ["name", "kind", "data_derived", "fits", "source_columns"], "properties": {
+      "name": {"type": "string", "minLength": 1}, "kind": {"enum": ["continuous", "categorical", "cluster_label", "other"]},
+      "data_derived": {"type": "boolean"}, "fits": {"type": "array", "items": {"type": "object", "required": ["split_id", "fit_sample_ids"], "properties": {
+        "split_id": {"type": "string", "minLength": 1}, "fit_sample_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }, "additionalProperties": false}},
+      "source_columns": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+    }, "additionalProperties": false},
+    "splits": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["split_id", "sample_id", "group_id", "partition"], "properties": {
+      "split_id": {"type": "string", "minLength": 1}, "sample_id": {"type": "string", "minLength": 1},
+      "group_id": {"type": "string", "minLength": 1}, "partition": {"enum": ["train", "validation", "test"]}
+    }, "additionalProperties": false}},
+    "transforms": {"type": "array", "items": {"type": "object", "required": ["transform_id", "split_id", "kind", "fit_sample_ids", "output_partition", "synthetic_samples"], "properties": {
+      "transform_id": {"type": "string", "minLength": 1}, "split_id": {"type": "string", "minLength": 1},
+      "kind": {"enum": ["imputation", "scaling", "feature_selection", "dimensionality_reduction", "clustering", "resampling", "other"]},
+      "fit_sample_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+      "output_partition": {"enum": ["train", "validation", "test"]},
+      "imputation_fraction": {"type": "number", "minimum": 0}, "stochastic": {"type": "boolean"},
+      "random_seed": {"type": ["integer", "null"]}, "consequential": {"type": "boolean"},
+      "synthetic_samples": {"type": "array", "items": {"type": "object", "required": ["sample_id", "parent_sample_ids"], "properties": {
+        "sample_id": {"type": "string", "minLength": 1}, "parent_sample_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }, "additionalProperties": false}}
+    }, "additionalProperties": false}},
+    "selection_steps": {"type": "array", "items": {"type": "object", "required": ["name", "selected_using"], "properties": {
+      "name": {"type": "string", "minLength": 1}, "selected_using": {"enum": ["train_only", "inner_cv", "validation", "test"]}
+    }, "additionalProperties": false}},
+    "evaluation": {"type": "object", "required": ["repeats", "seeds", "baseline_ids", "raw_predictions_artifact", "uncertainty_reported", "metric_averaging", "test_access_count", "test_access_purpose"], "properties": {
+      "repeats": {"type": "integer", "minimum": 1}, "seeds": {"type": "array", "minItems": 1, "items": {"type": "integer"}},
+      "baseline_ids": {"type": "array", "items": {"type": "string"}}, "raw_predictions_artifact": {"type": "string"},
+      "uncertainty_reported": {"type": "boolean"}, "metric_averaging": {"type": "string", "minLength": 1},
+      "test_access_count": {"type": "integer", "minimum": 0}, "test_access_purpose": {"enum": ["not_accessed", "final_evaluation", "selection"]}
+    }, "additionalProperties": false},
+    "data_quality": {"type": "object", "required": ["missingness_checked", "physical_constraints_checked", "category_normalization_checked", "missingness_artifact", "physical_constraints_artifact", "category_normalization_artifact", "sensitivity_analysis"], "properties": {
+      "missingness_checked": {"type": "boolean"}, "physical_constraints_checked": {"type": "boolean"}, "category_normalization_checked": {"type": "boolean"},
+      "missingness_artifact": {"type": "string", "minLength": 1}, "physical_constraints_artifact": {"type": "string", "minLength": 1},
+      "category_normalization_artifact": {"type": "string", "minLength": 1}, "sensitivity_analysis": {"enum": ["passed", "not_required", "not_run"]}
+    }, "additionalProperties": false},
+    "optimization": {"type": ["object", "null"], "properties": {
+      "objective_semantics_artifact": {"type": "string"}, "feature_alignment_artifact": {"type": "string"},
+      "feasibility_constraints_artifact": {"type": "string"}, "applicability_domain_artifact": {"type": "string"},
+      "uses_ordinal_distance_on_nominal_labels": {"type": "boolean"}
+    }, "additionalProperties": false},
+    "novelty": {"type": ["object", "null"], "properties": {
+      "training_overlap_checked": {"type": "boolean"}, "prior_art_checked": {"type": "boolean"},
+      "status": {"enum": ["known_candidate", "retrospective_rediscovery", "unvalidated_prospective_candidate", "prospectively_validated"]},
+      "evidence_artifact": {"type": "string"}
+    }, "additionalProperties": false},
+    "reproduction": {"type": "object", "required": ["data_hash", "split_artifact", "config_hash", "code_hash", "environment_artifact", "command_artifact"], "properties": {
+      "data_hash": {"type": "string", "minLength": 1}, "split_artifact": {"type": "string", "minLength": 1},
+      "config_hash": {"type": "string", "minLength": 1}, "code_hash": {"type": "string", "minLength": 1},
+      "environment_artifact": {"type": "string", "minLength": 1}, "command_artifact": {"type": "string", "minLength": 1}
+    }, "additionalProperties": false},
+    "validation_gates": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["gate_id", "status", "reason", "evidence_refs"], "properties": {
+      "gate_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+      "status": {"enum": ["passed", "failed", "not_run", "not_applicable"]}, "reason": {"type": "string", "minLength": 1},
+      "evidence_refs": {"type": "array", "items": {"type": "string"}}
+    }, "additionalProperties": false}},
+    "products": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["artifact_id", "kind", "depends_on", "status"], "properties": {
+      "artifact_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+      "kind": {"enum": ["audit", "metric", "model_ranking", "interpretation", "optimization", "figure", "claim"]},
+      "depends_on": {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"}},
+      "status": {"enum": ["valid", "invalidated"]}
+    }, "additionalProperties": false}}
+  }, "additionalProperties": false
+}
