@@ -1,6 +1,6 @@
 {
   "name": "lab_advisor",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "description": "工学・生物・化学・物理・材料・情報など理系の研究を、根拠・検証・レビュー・承認の境界を明確にして進めるプラグインです。",
   "author": {
     "name": "Shuichi Tani"

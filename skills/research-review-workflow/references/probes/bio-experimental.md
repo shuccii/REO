@@ -13,3 +13,4 @@ Apply when the study is an experiment with samples, cells, organisms, assays or 
 - **Sequence and data leakage**: homology or near-duplicate sequences across train and test sets, shared donors or patients across groups, and selection of cases after seeing results.
 - **Ethics and biosafety records**: animal or human-subject approval, consent, and the containment level of organisms or genetic modification, as stated in the source. Record "not stated" when absent; do not assume compliance.
 - **Interpretation**: association versus mechanism; in vitro effects versus in vivo relevance; dose and time dependence; off-target effects and alternative pathways.
+- **Tools** (optional): `tools/power.py` and `tools/multiplicity.py` (`requirements/base.txt`); `tools/sequence_identity.py` for train/test sequence leakage (`requirements/bio.txt`).

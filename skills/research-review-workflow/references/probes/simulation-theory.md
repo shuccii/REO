@@ -13,3 +13,4 @@ Apply to numerical simulations, analytic derivations and mathematical or physica
 - **Verification versus validation**: verification asks whether the code solves the equations correctly; validation asks whether the equations describe reality. A converged solver is not an experimental comparison.
 - **Reproducibility**: code version, random seeds, solver settings and computing environment recorded; results regenerated from the stated inputs.
 - **Assumptions**: each simplifying assumption listed with the effect of relaxing it, if known.
+- **Tools** (optional, `requirements/base.txt`): `tools/dimcheck.py` for dimensional consistency of model equations.

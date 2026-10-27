@@ -38,3 +38,7 @@ Inspect objective units/direction, meaningful multi-objective tradeoffs, feasibi
 ## Alternative experiments
 
 For each material competing explanation, propose an intervention/control/measurement with different predicted outcomes. Include independent batches, another instrument/source/conditions, negative controls and boundary cases where appropriate. Specify feasibility, time/cost, safety/approval constraints already applicable, and how each outcome changes the central claim. Prefer the smallest experiment that resolves the most consequential uncertainty.
+
+## Tools
+
+Optional: `tools/dimcheck.py` and `tools/uncertainty.py` (`requirements/base.txt`); `tools/smiles_check.py` for molecular datasets (`requirements/chem.txt`).

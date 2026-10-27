@@ -17,6 +17,28 @@
 | 数値シミュレーション・理論 | `simulation-theory.md` |
 | フィールド調査・疫学・社会調査 | `field-observational.md` |
 
+## 分野別の確認ツール(任意)
+
+`tools/` に、結果を JSON で返す確認用のスクリプトがあります。使う分野のものだけ入れてください(Python 3.11 以上)。
+
+```bash
+uv venv .venv
+uv pip install -r requirements/base.txt      # 共通
+uv pip install -r requirements/chem.txt      # 化学(RDKit)
+uv pip install -r requirements/bio.txt       # 生物(Biopython)
+```
+
+| ツール | 確認すること | 必要なもの |
+|---|---|---|
+| `tools/dimcheck.py "F = m*a" --units "F:N,m:kg,a:m/s**2"` | 式の両辺の次元(単位)がそろっているか | base |
+| `tools/uncertainty.py "m / V" --var "m=12.31:0.02,V=4.52:0.05"` | 誤差の伝播と、報告する桁 | base |
+| `tools/power.py --effect 0.5 --power 0.8` | 必要なサンプルサイズ、検出力 | base |
+| `tools/multiplicity.py --p 0.01 0.04 0.03` | 多重検定の補正(FDR など) | base |
+| `tools/smiles_check.py data.csv --split-column split` | SMILES の誤り、重複、学習・評価データ間の分子と骨格の重なり | chem |
+| `tools/sequence_identity.py train.fasta test.fasta` | 学習・評価データ間で配列が似すぎていないか | bio |
+
+終了コードは 0 = 問題なし、1 = 問題あり、2 = 入力の誤りまたはパッケージ未導入です。ツールの結果は入力に対する計算であり、測定や主張そのものの正しさを保証するものではありません。
+
 ## はじめに(初回設定)
 
 最初に `setup-profile` スキルを使い、分野・手法・段階・所属大学を数問で答えてください。答えは `~/.config/lab-advisor/profile.md` に保存され、以後のスキルが読みます。プロファイルはこのリポジトリの外に置かれ、更新の影響を受けません。

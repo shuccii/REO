@@ -12,3 +12,4 @@ Apply to synthesis, reaction studies, spectroscopy, chromatography and chemical 
 - **Computational support**: basis set and functional stated, comparison with experimental values, and conformer or solvation treatment where relevant.
 - **Safety and waste**: hazardous reagents, pressure or temperature risks, and waste handling, as recorded in the source. A missing safety statement is a question, not a finding of misconduct.
 - **Data units and significant figures**: consistent units, molar versus mass basis, and figures that match the reported precision.
+- **Tools** (optional): `tools/smiles_check.py` for invalid SMILES, duplicates and train/test molecule or scaffold overlap (`requirements/chem.txt`); `tools/uncertainty.py` for propagated errors.

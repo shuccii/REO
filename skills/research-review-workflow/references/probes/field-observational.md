@@ -13,3 +13,4 @@ Apply to observational, survey, ecological, epidemiological or field-collected d
 - **Temporal and spatial structure**: autocorrelation, clustering by site or time, and whether standard errors account for it.
 - **Data handling**: exclusion rules stated before analysis; imputation method and sensitivity analysis when data are missing.
 - **Ethics and permissions**: approvals, consent and data-sharing limits as recorded in the source. Record "not stated" when absent.
+- **Tools** (optional, `requirements/base.txt`): `tools/power.py` for sample size, `tools/multiplicity.py` for FDR or FWER correction.

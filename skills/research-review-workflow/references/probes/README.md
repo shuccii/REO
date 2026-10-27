@@ -18,3 +18,7 @@ Rules common to all probes:
 - Do not impose a method the study did not use (for example, p-values on a pure proof, or a predictive benchmark on a mechanistic experiment).
 - Probes are checklists for finding evidence gaps. A missing item is a question to answer, not proof of an error, unless the source shows the error.
 - Domain conventions vary between subfields. When unsure, mark the item "not assessed" and ask the author or a domain expert.
+
+## Tools
+
+Deterministic helper scripts live in `tools/` at the plugin root. They are optional: run them only when the needed package is installed, and report "not run" otherwise. Each prints JSON and exits 0 (no problem), 1 (problem found) or 2 (invalid input or missing package). A tool result is evidence about the stated inputs only; it does not validate the measurement or the claim.

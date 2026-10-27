@@ -12,3 +12,4 @@ Apply to measurements, instrumentation, device or structural experiments and eng
 - **Scaling and similitude**: whether scaled models (wind tunnel, small specimen, reduced model) preserve the relevant dimensionless numbers, and the validity range of scaling laws.
 - **Safety factors and design margins**: loads, boundary conditions and failure criteria as stated; cyclic, thermal or environmental effects not omitted silently.
 - **Repeatability**: number of trials, scatter between specimens, and whether outliers were removed with a stated rule.
+- **Tools** (optional, `requirements/base.txt`): `tools/dimcheck.py` for dimensional consistency, `tools/uncertainty.py` for error propagation and reporting digits.

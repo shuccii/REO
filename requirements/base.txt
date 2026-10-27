@@ -1,0 +1,7 @@
+# 分野共通の確認ツール(tools/dimcheck.py, uncertainty.py, power.py, multiplicity.py)
+# Python 3.11 以上
+pint>=0.26.2
+uncertainties>=3.2.3
+statsmodels>=0.15.0
+numpy>=2.0
+scipy>=1.13

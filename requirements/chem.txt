@@ -1,0 +1,3 @@
+# 化学: tools/smiles_check.py
+-r base.txt
+rdkit>=2026.9.1
