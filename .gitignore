@@ -6,3 +6,5 @@ benchmarks/private.local.*
 runs/
 baseline/raw/
 benchmark-results/**/raw/
+evals/results/
+evals/bench/runs/

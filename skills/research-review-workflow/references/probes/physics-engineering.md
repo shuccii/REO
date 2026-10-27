@@ -2,6 +2,8 @@
 
 概要(日本語): 物理・機械・電気・土木などの測定と工学的設計で確認する項目です。単位、誤差、有効数字、校正、スケーリングを点検します。
 
+> 注意: この確認項目は文献と一般的な指針から合成した目安で、この分野の専門家による確認はまだ受けていません。分野の慣習と食い違う場合は、指導教員や専門家の判断を優先してください。
+
 Apply to measurements, instrumentation, device or structural experiments and engineering analysis.
 
 - **Units and dimensions**: every quantity has a unit; equations are dimensionally consistent; conversions are correct; log or exponential fits are interpreted with the right error model.

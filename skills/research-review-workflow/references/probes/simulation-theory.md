@@ -2,6 +2,8 @@
 
 概要(日本語): 数値シミュレーション、解析的理論、数理モデルの研究で確認する項目です。極限との一致、収束、境界条件、保存則を点検します。
 
+> 注意: この確認項目は文献と一般的な指針から合成した目安で、この分野の専門家による確認はまだ受けていません。分野の慣習と食い違う場合は、指導教員や専門家の判断を優先してください。
+
 Apply to numerical simulations, analytic derivations and mathematical or physical models.
 
 - **Limiting cases**: the model reproduces known analytic solutions or established results in the limits where they apply. A model that cannot recover a known limit needs an explanation.

@@ -234,7 +234,7 @@ MIT License(`LICENSE` を参照)。
 
 ## バージョン
 
-現在の版は 0.9.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+現在の版は 0.10.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
 ## 謝辞
 

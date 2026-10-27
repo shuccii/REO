@@ -2,6 +2,8 @@
 
 概要(日本語): 材料物性の予測、データ同化、ベイズ最適化など、材料科学と機械学習が交わる研究の確認項目です。
 
+> 注意: この確認項目は文献と一般的な指針から合成した目安で、この分野の専門家による確認はまだ受けていません。分野の慣習と食い違う場合は、指導教員や専門家の判断を優先してください。
+
 # Materials, experiments, theory and ML probes
 
 Apply the relevant probes; record why others do not apply. Do not impose random splitting, p-values or a predictive-model benchmark on a proof or literature study.

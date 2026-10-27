@@ -1,0 +1,3 @@
+# Kinetics of the hydrolysis of ester E in aqueous buffer (fictional abstract)
+
+The hydrolysis of ester E was followed by UV absorbance at 25.0 °C in phosphate buffer (pH 7.4). Runs were performed at initial ester concentrations of 0.10, 0.20 and 0.40 mM, each in triplicate, and the absorbance was converted to concentration with a calibration curve measured on the same day. The half-life was 12.1 ± 0.3 min and did not depend on the initial concentration. This constant half-life confirms that the hydrolysis is second order in ester, and we report a second-order rate constant derived from the half-life measured at 0.10 mM.

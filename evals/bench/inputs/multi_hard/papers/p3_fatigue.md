@@ -1,0 +1,3 @@
+# Fatigue life of a laser-welded steel joint (fictional abstract)
+
+We tested 18 laser-welded joints in constant-amplitude axial fatigue at stress ranges of 220, 180 and 140 MPa (six specimens per level, stress ratio R = 0.1). All specimens failed between 4 × 10⁴ and 9 × 10⁵ cycles. A Basquin S–N curve fitted to the data (R² = 0.96) was used to estimate the stress range corresponding to a life of 10⁹ cycles, which gave 61 MPa. Specimen dimensions and weld geometry were measured before testing and were within tolerance. We recommend 61 MPa as the design stress range for ultra-high-cycle loading of this joint in railway bogies.

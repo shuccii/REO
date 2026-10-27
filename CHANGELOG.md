@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.0
+
+- 出力の型(`output-template.md`)を追加し、研究レビューの節の順番と名前を固定。前回のレビューとの比較表を含む。
+- 読み込む参照ファイルを、採点基準・段階の基準・分野の確認項目1〜2枚に限定(費用の削減)。
+- 数値に関わる指摘は、Python か `tools/` で計算してから書くように変更。
+- 長い原稿の読み方(`long-manuscripts.md`)を追加。
+- 評価用の課題 `evals/` を追加(Claude Code の `claude plugin eval` 用と、ファイルを使う比較用の `evals/bench/`)。
+- 分野の確認項目に、専門家の確認前であることを明記。
+
 ## 0.9.0
 
 - 研究アドバイザーに範囲を絞り、就活(`job-search-workflow`)とソフトウェア開発(`software-delivery-workflow`)のスキルを削除。基準の記録が必要で動かなくなっていた評価ハーネス(`benchmarks/`)も削除。

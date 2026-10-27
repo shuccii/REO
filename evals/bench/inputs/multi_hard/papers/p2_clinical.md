@@ -1,0 +1,3 @@
+# A pilot trial of breathing training for chronic tension-type headache (fictional abstract)
+
+Patients were recruited from a headache clinic when they attended because of a recent worsening of symptoms. Forty patients received eight weeks of guided breathing training. Headache severity was rated on a validated 0–10 scale at enrolment and after eight weeks by assessors who followed a standard interview script. Mean severity fell from 7.2 to 4.6 (paired t-test, p < 0.001), and 60% of patients were responders (≥ 30% reduction). In a historical cohort from the same clinic, collected from routine follow-up visits, only 20% of patients met the responder definition over a similar period. Breathing training is therefore an effective treatment for chronic tension-type headache.

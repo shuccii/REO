@@ -2,6 +2,8 @@
 
 概要(日本語): 化学合成、分析、反応の研究で確認する項目です。収率・純度、構造の帰属、再現性、安全性の記載を点検します。
 
+> 注意: この確認項目は文献と一般的な指針から合成した目安で、この分野の専門家による確認はまだ受けていません。分野の慣習と食い違う場合は、指導教員や専門家の判断を優先してください。
+
 Apply to synthesis, reaction studies, spectroscopy, chromatography and chemical analysis.
 
 - **Identity**: evidence that the compound is the one claimed (NMR, MS, IR, elemental analysis, X-ray), with assignments tied to the spectra. Peaks alone without assignment are not identification.

@@ -2,6 +2,8 @@
 
 概要(日本語): 生物・医学・ウェット実験の研究で確認する項目です。対照群、反復の種類、バッチ効果、試薬や細胞株の同一性、統計の多重性などを点検します。
 
+> 注意: この確認項目は文献と一般的な指針から合成した目安で、この分野の専門家による確認はまだ受けていません。分野の慣習と食い違う場合は、指導教員や専門家の判断を優先してください。
+
 Apply when the study is an experiment with samples, cells, organisms, assays or clinical material.
 
 - **Controls**: positive and negative controls, vehicle controls, and the reason each comparison is valid. A treatment without a matched control cannot show a specific effect.
