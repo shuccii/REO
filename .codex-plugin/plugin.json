@@ -1,14 +1,14 @@
 {
   "name": "lab_advisor",
   "version": "0.6.3",
-  "description": "研究・機械学習・ソフトウェア開発・就職活動などの複雑な作業を、根拠・検証・レビュー・承認の境界を明確にして進めるためのプラグインです。",
+  "description": "工学・生物・化学・物理・材料・情報など理系の研究を、根拠・検証・レビュー・承認の境界を明確にして進めるプラグインです。",
   "author": {
     "name": "Shuichi Tani"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Lab Advisor(研究室アドバイザー)",
-    "shortDescription": "研究の監査、論文の査読、発表の模擬質疑、作業の検証を行います。",
+    "shortDescription": "研究の監査、論文の査読、発表の模擬質疑、分野別の検証、作業の検証を行います。",
     "longDescription": "厳密な科学的検証と、根拠に基づく研究の監査・建設的な査読、計画の評価、模擬質疑を提供します。ソフトウェア開発・就職活動の軽量なワークフローと、独立したレビューの境界も備えます。",
     "developerName": "Shuichi Tani",
     "category": "Productivity",

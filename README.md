@@ -4,6 +4,23 @@
 
 通常の作業は軽量に扱い、研究・分析・機械学習では、データリーク、再現性、主張と根拠の対応、独立レビューを重視します。
 
+## 対応する分野
+
+工学、生物、化学、物理、材料、情報・数理、医学・薬学、地球・環境など、理系の幅広い研究に使えます。分野ごとの確認項目は `skills/research-review-workflow/references/probes/` にあり、初回設定で自分の分野に合うものだけを読みます。
+
+| 分野・手法 | 確認項目 |
+|---|---|
+| 材料物性、データ同化、ベイズ最適化 | `materials-ml.md` |
+| 生物・医学・ウェット実験 | `bio-experimental.md` |
+| 化学合成・分析 | `chemistry-synthesis.md` |
+| 物理・機械・電気・土木などの工学測定 | `physics-engineering.md` |
+| 数値シミュレーション・理論 | `simulation-theory.md` |
+| フィールド調査・疫学・社会調査 | `field-observational.md` |
+
+## はじめに(初回設定)
+
+最初に `setup-profile` スキルを使い、分野・手法・段階・所属大学を数問で答えてください。答えは `~/.config/lab-advisor/profile.md` に保存され、以後のスキルが読みます。プロファイルはこのリポジトリの外に置かれ、更新の影響を受けません。
+
 ## 主なワークフロー
 
 ### `orchestrate-work`

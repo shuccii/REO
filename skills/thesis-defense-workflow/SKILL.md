@@ -5,6 +5,8 @@ description: Prepare a graduate student for a master's thesis defense (thesis wr
 
 # Thesis Defense Workflow
 
+For institutions other than NAIST, use [institution template](references/institution-template.md) and record every rule as confirmed (with source) or unconfirmed.
+
 ## 概要(日本語)
 
 修士論文の執筆、最終発表、口頭試問の準備を、発表日から逆算して進めるスキルです。
