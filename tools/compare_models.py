@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare two regression models on the same samples with paired statistics.
+"""Compare two models (regression or classification) on the same samples with paired statistics.
 
 Example:
     python tools/compare_models.py predictions.csv --truth y --a pred_rf --b pred_gp
@@ -11,6 +11,9 @@ MAE, RMSE and R2; the paired difference with a bootstrap confidence interval (re
 when --group is given); a Wilcoxon signed-rank test and a paired effect size on per-unit errors;
 and, with --fold, the corrected resampled t-test (Nadeau and Bengio) on per-fold metrics.
 With --replicates (columns: id,value), the RMSE is compared with the measurement repeatability.
+Classification is detected automatically when the truth and predictions are labels (or set
+--task classification): accuracy, balanced accuracy and MCC, a bootstrap CI of their differences,
+and the McNemar test on the cases where exactly one model is correct.
 
 Prints JSON. Exits 0 when the comparison ran without warnings, 1 when it ran but a warning needs
 attention (for example, too few independent units or error below measurement noise), and 2 on
@@ -110,6 +113,79 @@ def repeatability(path):
     return float(math.sqrt(pooled)), len(usable)
 
 
+def detect_task(rows, truth, a, b):
+    labels = [r[c].strip() for r in rows for c in (truth, a, b)]
+    try:
+        numbers = [float(x) for x in labels]
+    except ValueError:
+        return 'classification'
+    distinct = set(numbers)
+    if len(distinct) <= 10 and all(x.is_integer() for x in distinct):
+        return 'classification'
+    return 'regression'
+
+
+def class_scores(truth, pred):
+    """Accuracy, balanced accuracy and multiclass MCC (Gorodkin)."""
+    import numpy as np
+    classes = sorted(set(truth) | set(pred))
+    index = {c: i for i, c in enumerate(classes)}
+    m = np.zeros((len(classes), len(classes)))
+    for t, p in zip(truth, pred):
+        m[index[t], index[p]] += 1
+    n = m.sum()
+    accuracy = np.trace(m) / n
+    recalls = [m[i, i] / m[i].sum() for i in range(len(classes)) if m[i].sum() > 0]
+    t_sum, p_sum = m.sum(axis=1), m.sum(axis=0)
+    cov_tp = np.trace(m) * n - (t_sum * p_sum).sum()
+    denom = math.sqrt((n ** 2 - (p_sum ** 2).sum()) * (n ** 2 - (t_sum ** 2).sum()))
+    return {'accuracy': float(accuracy), 'balanced_accuracy': float(np.mean(recalls)),
+            'mcc': float(cov_tp / denom) if denom else 0.0}
+
+
+def classification(rows, truth, a, b, group, n_boot, seed):
+    import numpy as np
+    from statsmodels.stats.contingency_tables import mcnemar
+    t = [r[truth].strip() for r in rows]
+    pa = [r[a].strip() for r in rows]
+    pb = [r[b].strip() for r in rows]
+    report = {'task': 'classification', 'n_rows': len(rows), 'models': {a: class_scores(t, pa), b: class_scores(t, pb)}}
+    warnings = []
+    units = {}
+    for i, row in enumerate(rows):
+        units.setdefault(row[group] if group else i, []).append(i)
+    keys = list(units)
+    report['independent_unit'] = group or 'row'
+    report['n_units'] = len(keys)
+    if len(keys) < 10:
+        warnings.append(f'Only {len(keys)} independent units: intervals and tests are unreliable.')
+    rng = np.random.default_rng(seed)
+    diffs = {k: [] for k in ('accuracy', 'balanced_accuracy', 'mcc')}
+    for _ in range(n_boot):
+        idx = [i for j in rng.integers(0, len(keys), len(keys)) for i in units[keys[j]]]
+        sa = class_scores([t[i] for i in idx], [pa[i] for i in idx])
+        sb = class_scores([t[i] for i in idx], [pb[i] for i in idx])
+        for k in diffs:
+            diffs[k].append(sa[k] - sb[k])
+    report['paired_difference'] = {}
+    for k, values in diffs.items():
+        low, high = np.percentile(values, [2.5, 97.5])
+        report['paired_difference'][k] = {'difference_a_minus_b': report['models'][a][k] - report['models'][b][k],
+                                          'ci95': [float(low), float(high)], 'ci_excludes_zero': bool(low > 0 or high < 0)}
+    only_a = sum(1 for x, y, z in zip(t, pa, pb) if y == x and z != x)
+    only_b = sum(1 for x, y, z in zip(t, pa, pb) if z == x and y != x)
+    exact = only_a + only_b < 25
+    result = mcnemar([[0, only_a], [only_b, 0]], exact=exact)
+    report['mcnemar'] = {'only_a_correct': only_a, 'only_b_correct': only_b, 'exact': exact,
+                         'statistic': float(result.statistic), 'p': float(result.pvalue)}
+    if group and len(keys) < len(rows):
+        warnings.append('McNemar treats rows as independent; with repeated units rely on the unit-level bootstrap interval.')
+    report['warnings'] = warnings
+    report['note'] = ('Differences are A minus B: positive means A scores higher. Prefer balanced accuracy and MCC '
+                      'over accuracy when classes are imbalanced. Statistics quantify evidence; they do not prove a claim.')
+    return report
+
+
 def analyse(rows, truth, a, b, fold=None, group=None, test_fraction=None, replicates=None, n_boot=2000, seed=0):
     import numpy as np
     from scipy import stats
@@ -171,7 +247,7 @@ def analyse(rows, truth, a, b, fold=None, group=None, test_fraction=None, replic
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description='Paired statistical comparison of two regression models.')
+    parser = argparse.ArgumentParser(description='Paired statistical comparison of two models.')
     parser.add_argument('csv_file')
     parser.add_argument('--truth', required=True, help='column with measured values')
     parser.add_argument('--a', required=True, help='column with predictions of model A')
@@ -180,6 +256,7 @@ def main(argv=None):
     parser.add_argument('--group', help='column with the independent unit (sample, film, patient)')
     parser.add_argument('--test-fraction', type=float, help='test size / total per fold (default: 1 / number of folds)')
     parser.add_argument('--replicates', help='CSV with columns id,value of repeated measurements')
+    parser.add_argument('--task', choices=['auto', 'regression', 'classification'], default='auto')
     parser.add_argument('--n-boot', type=int, default=2000)
     parser.add_argument('--seed', type=int, default=0)
     args = parser.parse_args(argv)
@@ -191,8 +268,13 @@ def main(argv=None):
         return 2
     try:
         rows = read_rows(args.csv_file, (args.truth, args.a, args.b, args.fold, args.group))
-        report = analyse(rows, args.truth, args.a, args.b, args.fold, args.group, args.test_fraction,
-                         args.replicates, args.n_boot, args.seed)
+        task = detect_task(rows, args.truth, args.a, args.b) if args.task == 'auto' else args.task
+        if task == 'classification':
+            report = classification(rows, args.truth, args.a, args.b, args.group, args.n_boot, args.seed)
+        else:
+            report = analyse(rows, args.truth, args.a, args.b, args.fold, args.group, args.test_fraction,
+                             args.replicates, args.n_boot, args.seed)
+            report = {'task': 'regression', **report}
     except (OSError, ValueError) as error:
         print(json.dumps({'error': str(error)}))
         return 2

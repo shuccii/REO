@@ -48,7 +48,7 @@ Use [execution, review and recovery](../orchestrate-work/references/execution-co
 - Fit preprocessing within each training fold only.
 - Retain raw predictions or sufficient arrays to recompute reported metrics.
 - Report variation across folds, seeds, or independent repeats where the design allows it.
-- Support every comparative claim (model A better than B, treatment changes the outcome) with a statistical comparison on independent units: read [statistical comparison](references/statistical-comparison.md) and run `tools/compare_models.py` for paired model comparisons. Report the difference with its CI, the test, n and the correction for multiple comparisons. Compare errors with measurement repeatability when replicate measurements exist.
+- Support every comparative claim (model A better than B, treatment changes the outcome) with a statistical comparison on independent units: read [statistical comparison](references/statistical-comparison.md) and let the tools choose the method: `tools/choose_evaluation.py` for the validation scheme and metrics, `tools/compare_models.py` for model comparisons, `tools/auto_test.py` for comparisons between conditions. Report the decision path. Report the difference with its CI, the test, n and the correction for multiple comparisons. Compare errors with measurement repeatability when replicate measurements exist.
 - Separate predictive association from causal interpretation.
 - Record any unavailable raw data or unexecuted calculation as a limitation, not a result.
 

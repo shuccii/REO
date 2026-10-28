@@ -2,6 +2,22 @@
 
 概要(日本語): 予測して終わりにせず、「モデル A は B より良い」「処理で値が変わった」を統計的に示すための手順です。検定の選び方、交差検証の結果の比べ方、ばらつきと測定誤差の示し方、報告の書き方をまとめます。統計は主張を「証明」するものではなく、偶然では説明しにくいという根拠の強さを数値で示すものです。
 
+## 0. Let the tools choose (自動選択)
+
+Run the selector that matches the question before choosing a method by hand, and report its decision path:
+
+| Question | Tool | What it chooses |
+|---|---|---|
+| How should the model be validated and scored? | `tools/choose_evaluation.py data.csv --target y [--group unit] [--time t]` | Split scheme (group, time, leave-one-out, repeated or plain k-fold), number of repeats, tuning rule, metrics, baselines |
+| Is model A better than model B? | `tools/compare_models.py pred.csv --truth y --a A --b B [--fold f] [--group unit]` | Regression or classification from the labels; paired bootstrap CI, Wilcoxon or McNemar, corrected resampled t-test |
+| Do conditions differ (treatment vs control, catalysts, time points)? | `tools/auto_test.py data.csv --value y --condition c [--unit u]` | Paired or independent; continuous or binary; Welch / Mann–Whitney / permutation; paired t / Wilcoxon / sign-flip; ANOVA + Tukey / Alexander–Govern + Welch / Kruskal–Wallis; RM-ANOVA / Friedman; Fisher / chi-square / McNemar / Cochran's Q; effect size and Holm-corrected post hoc tests |
+
+Rules for automatic choice:
+
+- The choice depends on the **design** (independent unit, pairing, number of conditions, data type) first, and on diagnostics (normality of standardized residuals or differences, equal variances, sample size) second. Name the independent unit with `--unit` / `--group`; without it every row is treated as independent.
+- Run the selector once, before interpreting results. Do not switch to another test because its p-value is smaller. If there is a domain reason to override the choice (an established method in the field, a pre-registered plan), state the reason and report the selector's choice alongside.
+- The tools cover the common designs. For nested or crossed random effects, censored data (survival), counts with overdispersion, or spatial/temporal autocorrelation, they say so only indirectly: use a mixed model, survival analysis, a GLM or a spatial model, and note that the tools did not apply.
+
 ## 1. Decide before testing
 
 Write these down before looking at the comparison:

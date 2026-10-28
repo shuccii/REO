@@ -108,7 +108,9 @@ uv pip install -r requirements/bio.txt       # 生物(Biopython)
 | `tools/uncertainty.py "m / V" --var "m=12.31:0.02,V=4.52:0.05"` | 誤差の伝播と、報告する桁 | base |
 | `tools/power.py --effect 0.5 --power 0.8` | 必要なサンプルサイズ、検出力 | base |
 | `tools/multiplicity.py --p 0.01 0.04 0.03` | 多重検定の補正(FDR など) | base |
-| `tools/compare_models.py pred.csv --truth y --a pred_rf --b pred_gp --fold fold --group sample` | 2つのモデルの差を、独立な単位で対にして比べる(差の信頼区間、Wilcoxon 検定、効果量、交差検証用の補正つき t 検定、測定誤差との比較) | base |
+| `tools/compare_models.py pred.csv --truth y --a pred_rf --b pred_gp --fold fold --group sample` | 2つのモデルの差を、独立な単位で対にして比べる。回帰か分類かを自動で判定(回帰: 差の信頼区間・Wilcoxon・補正つき t 検定・測定誤差との比較、分類: 正解率・balanced accuracy・MCC の差と McNemar 検定) | base |
+| `tools/auto_test.py data.csv --value y --condition cond --unit sample` | 条件の比較で、デザイン(対応の有無・群の数・連続か2値か)と分布から検定を自動で選んで実行し、選んだ理由・効果量・多重比較を補正した事後検定を返す | base |
+| `tools/choose_evaluation.py data.csv --target y --group sample` | データから、分割の仕方(グループ・時系列・一個抜きなど)、繰り返し回数、指標、比較の基準を勧める | なし |
 | `tools/smiles_check.py data.csv --split-column split` | SMILES の誤り、重複、学習・評価データ間の分子と骨格の重なり | chem |
 | `tools/sequence_identity.py train.fasta test.fasta` | 学習・評価データ間で配列が似すぎていないか | bio |
 
@@ -235,7 +237,7 @@ MIT License(`LICENSE` を参照)。
 
 ## バージョン
 
-現在の版は 0.11.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+現在の版は 0.12.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
 ## 謝辞
 

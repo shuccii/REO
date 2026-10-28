@@ -143,6 +143,97 @@ class CompareModelsTests(unittest.TestCase):
             path = self.write(directory, [[1, 0, 1, 1, 1]])
             self.assertEqual(run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'missing'])[0], 2)
 
+
+def write_csv(directory, name, header, rows):
+    path = Path(directory) / name
+    path.write_text(','.join(header) + '\n' + '\n'.join(','.join(map(str, r)) for r in rows) + '\n')
+    return path
+
+
+@unittest.skipUnless(has('numpy') and has('scipy') and has('statsmodels'), 'statistics packages not installed')
+class AutoTestTests(unittest.TestCase):
+    def choose(self, header, rows, *args):
+        from auto_test import main
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_csv(directory, 'd.csv', header, rows)
+            return run(main, [str(path), *args])
+
+    def test_replicates_are_averaged_and_welch_is_chosen_for_normal_data(self):
+        import random
+        rng = random.Random(1)
+        rows = [[f'{c}{i}', c, rng.gauss(10 if c == 'A' else 12, 1)] for c in 'AB' for i in range(15) for _ in range(3)]
+        code, report = self.choose(['film', 'cond', 'y'], rows, '--value', 'y', '--condition', 'cond', '--unit', 'film')
+        self.assertEqual(report['test'], 'Welch t-test')
+        self.assertEqual(report['n_units_per_condition'], {'A': 15, 'B': 15})
+        self.assertLess(report['p'], 0.05)
+
+    def test_skewed_independent_data_uses_rank_test(self):
+        import random
+        rng = random.Random(2)
+        rows = [[c, rng.expovariate(1.0) ** 3 * (1 if c == 'a' else 2)] for c in 'ab' for _ in range(20)]
+        code, report = self.choose(['cond', 'y'], rows, '--value', 'y', '--condition', 'cond')
+        self.assertEqual(report['test'], 'Mann-Whitney U')
+
+    def test_paired_design_is_detected(self):
+        import random
+        rng = random.Random(3)
+        rows = []
+        for d in range(12):
+            base = rng.gauss(5, 2)
+            rows += [[f'd{d}', 'pre', base], [f'd{d}', 'post', base + rng.gauss(1, 0.3)]]
+        code, report = self.choose(['donor', 'time', 'y'], rows, '--value', 'y', '--condition', 'time', '--unit', 'donor')
+        self.assertEqual(report['design'], 'paired')
+        self.assertIn(report['test'], ('Paired t-test', 'Wilcoxon signed-rank'))
+
+    def test_unequal_variances_with_three_groups(self):
+        import random
+        rng = random.Random(4)
+        rows = [[c, rng.gauss(m, sd)] for c, m, sd in (('a', 5, 0.3), ('b', 6, 3.0), ('c', 5.5, 1.0)) for _ in range(25)]
+        code, report = self.choose(['cond', 'y'], rows, '--value', 'y', '--condition', 'cond')
+        self.assertTrue(report['test'].startswith('Alexander-Govern'))
+        self.assertEqual(len(report['post_hoc']), 3)
+
+    def test_binary_outcomes(self):
+        rows = [[f'u{i}', t, int(i % 3 == 0) if t == 'before' else int(i % 2 == 0)] for i in range(30) for t in ('before', 'after')]
+        code, report = self.choose(['unit', 'time', 'ok'], rows, '--value', 'ok', '--condition', 'time', '--unit', 'unit')
+        self.assertTrue(report['test'].startswith('McNemar'))
+        rows = [[g, 1 if i < k else 0] for g, k in (('x', 2), ('y', 7)) for i in range(9)]
+        code, report = self.choose(['g', 'ok'], rows, '--value', 'ok', '--condition', 'g')
+        self.assertEqual(report['test'], "Fisher's exact")
+
+
+@unittest.skipUnless(has('numpy') and has('scipy') and has('statsmodels'), 'statistics packages not installed')
+class ClassificationCompareTests(unittest.TestCase):
+    def test_labels_switch_to_classification(self):
+        from compare_models import main
+        rows = [[i % 2, i % 2, (i % 2) if i % 5 else 1 - i % 2] for i in range(100)]
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_csv(directory, 'c.csv', ['y', 'a', 'b'], rows)
+            code, report = run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'b'])
+        self.assertEqual(report['task'], 'classification')
+        self.assertEqual(report['models']['a']['accuracy'], 1.0)
+        self.assertEqual(report['mcnemar']['only_a_correct'], 20)
+        self.assertTrue(report['paired_difference']['accuracy']['ci_excludes_zero'])
+
+
+class ChooseEvaluationTests(unittest.TestCase):
+    def recommend(self, header, rows, *args):
+        from choose_evaluation import main
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_csv(directory, 'e.csv', header, rows)
+            return run(main, [str(path), *args])
+
+    def test_groups_time_and_imbalance(self):
+        rows = [[f'c{i // 4}', i, i * 0.5 + 1] for i in range(80)]
+        code, report = self.recommend(['compound', 'x', 'y'], rows, '--target', 'y', '--group', 'compound')
+        self.assertIn('GroupKFold', report['split']['scheme'])
+        code, report = self.recommend(['t', 'y'], [[i, i * 1.5 + 0.3] for i in range(50)], '--target', 'y', '--time', 't')
+        self.assertIn('time split', report['split']['scheme'])
+        code, report = self.recommend(['y'], [[1 if i < 5 else 0] for i in range(100)], '--target', 'y')
+        self.assertEqual(report['task'], 'classification')
+        self.assertIn('PR-AUC (precision-recall)', report['metrics'])
+        self.assertTrue(any('accuracy is misleading' in n for n in report['notes']))
+
 @unittest.skipUnless(has('rdkit'), 'rdkit not installed')
 class SmilesTests(unittest.TestCase):
     def test_invalid_duplicate_and_leakage(self):
