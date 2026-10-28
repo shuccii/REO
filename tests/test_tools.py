@@ -82,6 +82,67 @@ class StatisticsTests(unittest.TestCase):
         self.assertEqual(run(main, ['--p', '1.5'])[0], 2)
 
 
+
+@unittest.skipUnless(has('numpy') and has('scipy'), 'numpy/scipy not installed')
+class CompareModelsTests(unittest.TestCase):
+    def write(self, directory, rows, header='unit,fold,y,a,b'):
+        path = Path(directory) / 'pred.csv'
+        path.write_text(header + '\n' + '\n'.join(','.join(map(str, r)) for r in rows) + '\n')
+        return path
+
+    def test_detects_better_model_and_corrected_t_matches_hand_value(self):
+        import random
+        from compare_models import main
+        rng = random.Random(3)
+        rows = []
+        for unit in range(40):
+            y = rng.gauss(10, 2)
+            rows.append([f'u{unit}', unit % 5, round(y, 4), round(y + rng.gauss(0, 1.0), 4), round(y + rng.gauss(0, 0.4), 4)])
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write(directory, rows)
+            code, report = run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'b', '--fold', 'fold', '--group', 'unit'])
+        self.assertEqual(code, 0)
+        self.assertTrue(report['paired_difference']['mae']['ci_excludes_zero'])
+        self.assertGreater(report['paired_difference']['mae']['ci95'][0], 0)
+        # Hand calculation of the Nadeau-Bengio statistic from per-fold MAE differences.
+        folds = {}
+        for _, fold, y, a, b in rows:
+            folds.setdefault(fold, []).append((abs(a - y), abs(b - y)))
+        d = [sum(x for x, _ in v) / len(v) - sum(z for _, z in v) / len(v) for v in folds.values()]
+        mean = sum(d) / 5
+        var = sum((x - mean) ** 2 for x in d) / 4
+        expected_t = mean / ((1 / 5 + 0.2 / 0.8) * var) ** 0.5
+        self.assertAlmostEqual(report['corrected_resampled_t_test']['mae']['t'], round(expected_t, 4), places=3)
+        self.assertLess(report['corrected_resampled_t_test']['mae']['naive_p_uncorrected'],
+                        report['corrected_resampled_t_test']['mae']['p'])
+
+    def test_replicates_are_not_independent_units(self):
+        from compare_models import main
+        rows = [[f'u{i // 3}', 0, 1.0 + i, 1.1 + i, 1.2 + i] for i in range(9)]
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write(directory, rows)
+            code, report = run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'b', '--group', 'unit'])
+        self.assertEqual(code, 1)
+        self.assertEqual(report['n_units'], 3)
+        self.assertTrue(any('independent units' in w for w in report['warnings']))
+
+    def test_error_below_measurement_noise_is_flagged(self):
+        from compare_models import main
+        rows = [[f'u{i}', 0, float(i), i + 0.01 * (-1) ** i, i + 0.02 * (-1) ** i] for i in range(20)]
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write(directory, rows)
+            reps = Path(directory) / 'reps.csv'
+            reps.write_text('id,value\nr1,1.0\nr1,1.5\nr2,2.0\nr2,2.6\n')
+            code, report = run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'b', '--replicates', str(reps)])
+        self.assertEqual(code, 1)
+        self.assertTrue(any('below the measurement repeatability' in w for w in report['warnings']))
+
+    def test_missing_column_exits_two(self):
+        from compare_models import main
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write(directory, [[1, 0, 1, 1, 1]])
+            self.assertEqual(run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'missing'])[0], 2)
+
 @unittest.skipUnless(has('rdkit'), 'rdkit not installed')
 class SmilesTests(unittest.TestCase):
     def test_invalid_duplicate_and_leakage(self):

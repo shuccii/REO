@@ -108,6 +108,7 @@ uv pip install -r requirements/bio.txt       # 生物(Biopython)
 | `tools/uncertainty.py "m / V" --var "m=12.31:0.02,V=4.52:0.05"` | 誤差の伝播と、報告する桁 | base |
 | `tools/power.py --effect 0.5 --power 0.8` | 必要なサンプルサイズ、検出力 | base |
 | `tools/multiplicity.py --p 0.01 0.04 0.03` | 多重検定の補正(FDR など) | base |
+| `tools/compare_models.py pred.csv --truth y --a pred_rf --b pred_gp --fold fold --group sample` | 2つのモデルの差を、独立な単位で対にして比べる(差の信頼区間、Wilcoxon 検定、効果量、交差検証用の補正つき t 検定、測定誤差との比較) | base |
 | `tools/smiles_check.py data.csv --split-column split` | SMILES の誤り、重複、学習・評価データ間の分子と骨格の重なり | chem |
 | `tools/sequence_identity.py train.fasta test.fasta` | 学習・評価データ間で配列が似すぎていないか | bio |
 
@@ -234,7 +235,7 @@ MIT License(`LICENSE` を参照)。
 
 ## バージョン
 
-現在の版は 0.10.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+現在の版は 0.11.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
 ## 謝辞
 
