@@ -1,9 +1,13 @@
 ---
 name: setup-profile
-description: Interview the user in Japanese about their field, research methods, current phase and institution, then write a local profile that other skills read to choose probes, criteria and templates. Use on first run or when the user asks to set up, check or change their profile.
+description: Interview the user in Japanese about their field, research methods, current phase and institution, then write a local profile that other skills read to choose probes, criteria and templates. Use on first run or when the user asks to set up, check or change their profile. 日本語での依頼例は、Re.O の初回設定、プロファイルの確認・変更。
 ---
 
 # Setup Profile
+
+## Plugin paths
+
+`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
 
 ## 概要(日本語)
 
@@ -24,7 +28,7 @@ description: Interview the user in Japanese about their field, research methods,
    - 研究室の規程を登録しているか(規程本文は保存しない。参照先だけ記録する)
 3. Show the draft profile and ask for confirmation. Save only after the user agrees.
 4. Use the template in `references/profile-template.md`. Mark anything not answered as `未設定`.
-5. Run `python3 tools/reo_profile.py` from the plugin root and report the saved path, any fields left `未設定`, and the probe files that will now be used. Other skills read the profile automatically.
+5. Run `python3 <plugin root>/tools/reo_profile.py` (see *Plugin paths*) and report the saved path, any fields left `未設定`, and the probe files that will now be used. Other skills read the profile automatically.
 
 ## Boundaries
 

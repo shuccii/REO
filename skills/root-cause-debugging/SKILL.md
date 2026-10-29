@@ -1,6 +1,6 @@
 ---
 name: root-cause-debugging
-description: Diagnose execution errors, failing tests, stalled work or unexpected numerical results before changing code, data or configuration. Use for NaN/inf, unstable fits, suspicious accuracy, unit mismatches and notebook execution problems.
+description: Diagnose execution errors, failing tests, stalled work or unexpected numerical results before changing code, data or configuration. Use for NaN/inf, unstable fits, suspicious accuracy, unit mismatches and notebook execution problems. 日本語での依頼例は、エラーの原因調査、NaN が出る、フィットが不安定、精度が高すぎて怪しい、Notebook が動かない。
 ---
 
 # Root Cause Debugging

@@ -5,10 +5,10 @@ Goal: keep the depth of the assessment while spending less time and fewer tokens
 ## Tier 0: skeleton (one command)
 
 ```bash
-python3 scripts/thesis_skeleton.py THESIS.docx --out skeleton.md
+python3 <plugin root>/scripts/thesis_skeleton.py THESIS.docx --out skeleton.md
 ```
 
-Paths are relative to the plugin root. The skeleton holds the outline, the first sentence of every paragraph, figure/table captions, strong claim wording and overlong sentences. Reuse it for every track and every later round; re-run it only when the thesis file changes (record the file version).
+Run it from the user's workspace with the `<plugin root>/` prefix shown above. The skeleton holds the outline, the first sentence of every paragraph, figure/table captions, strong claim wording and overlong sentences. Reuse it for every track and every later round; re-run it only when the thesis file changes (record the file version).
 
 ## Tier 1: checks on the skeleton
 

@@ -1,6 +1,6 @@
 ---
 name: research-ml-workflow
-description: Build, execute, validate, and communicate research or analysis with strict leakage controls, reproducibility evidence, independent review, and claim-level validity gates.
+description: Build, execute, validate, and communicate research or analysis with strict leakage controls, reproducibility evidence, independent review, and claim-level validity gates. 日本語での依頼例は、機械学習・データ解析の検証、データリーク、交差検証、モデルの比較、統計検定の選び方。
 ---
 
 # Research ML Workflow
@@ -21,9 +21,13 @@ Automatically use the `research_strict` assurance profile. Start from a v0.3 res
 
 For research audits, thesis/paper review, research-plan evaluation, or interim/final defense preparation, also use [research-review-workflow](../research-review-workflow/SKILL.md). It adds source acquisition, argument/novelty/domain review, constructive findings and adaptive questions. Review documents do not replace the strict numerical validation gates below.
 
+## Plugin paths
+
+`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
+
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 <plugin root>/tools/reo_profile.py` (standard library only; see *Plugin paths*), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Recommended task graph
 

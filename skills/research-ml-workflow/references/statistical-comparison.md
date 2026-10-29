@@ -40,7 +40,7 @@ Write these down before looking at the comparison:
 | "No meaningful difference" | Equivalence test (TOST) against the practical threshold | Reading p > 0.05 as "no difference" |
 | Small samples (n < 10 units) | Report every value and an exact or bootstrap interval; state that tests have little power (`tools/power.py`) | A single p-value as the main evidence |
 
-For two regression models, run `tools/compare_models.py` from the plugin root. It gives the paired bootstrap CI, Wilcoxon test, paired effect size, the corrected resampled t-test with `--fold`, and the comparison with measurement repeatability with `--replicates`. Give `--group` whenever rows are not independent units. For repeated k-fold CV, pass `--test-fraction`.
+For two regression models, run `<plugin root>/tools/compare_models.py` from the user's workspace. It gives the paired bootstrap CI, Wilcoxon test, paired effect size, the corrected resampled t-test with `--fold`, and the comparison with measurement repeatability with `--replicates`. Give `--group` whenever rows are not independent units. For repeated k-fold CV, pass `--test-fraction`.
 
 ## 3. Variation and error
 

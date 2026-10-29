@@ -1,6 +1,6 @@
 {
   "name": "reo",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "理系の研究(工学・生物・化学・物理・材料・情報など)の論文・修論を、主張と根拠の対応から点検し、模擬質疑まで支援する研究アドバイザーです。",
   "author": {
     "name": "Shuichi Tani"
@@ -13,7 +13,7 @@
     "developerName": "Shuichi Tani",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "根拠・検証・レビュー・承認の境界を明確にして、この作業を進めてください。"
+    "defaultPrompt": "この原稿を指導教員の立場で点検してください。主張と根拠の対応、代替の説明、必要な追加検証を、重大な順に示してください。"
   },
   "license": "MIT",
   "developerName": "Shuichi Tani"

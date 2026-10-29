@@ -1,9 +1,9 @@
 # Review report contract (additive v0.4.0)
 
-Use [the schema](../../../assets/research-review.schema.json) and [the validator](../../../scripts/validate_research_review.py). All command paths below are relative to the plugin root. Existing task/research contracts remain v0.3.0. A formal review report is a standalone advisory evidence ledger, not a replacement for strict experiment validation.
+Use [the schema](../../../assets/research-review.schema.json) and [the validator](../../../scripts/validate_research_review.py). Run the command below from the user's workspace; `<plugin root>` is the directory that contains `scripts/` and `assets/` (in Claude Code, `${CLAUDE_PLUGIN_ROOT}`). Existing task/research contracts remain v0.3.0. A formal review report is a standalone advisory evidence ledger, not a replacement for strict experiment validation.
 
 ```bash
-python3 -B scripts/validate_research_review.py --json review-report.json
+python3 -B <plugin root>/scripts/validate_research_review.py --json review-report.json
 ```
 
 The CLI returns 0 for contract-valid data, 1 for invalid report data/JSON, and 2 for invocation/file access errors. It always reports `scientific_validity: not_established`. Source locators are inert strings: the validator does not read evidence files, retrieve URLs, or establish authenticity/approval. Independent inspection remains necessary.

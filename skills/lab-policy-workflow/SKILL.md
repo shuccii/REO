@@ -1,6 +1,6 @@
 ---
 name: lab-policy-workflow
-description: Apply user-registered local laboratory policies when preparing authorship contributions, conference attendance plans, abstracts, posters, or research presentations; do not impose lab-specific rules on unrelated work.
+description: Apply user-registered local laboratory policies when preparing authorship contributions, conference attendance plans, abstracts, posters, or research presentations; do not impose lab-specific rules on unrelated work. 日本語での依頼例は、研究室ルールの適用、著者・貢献の整理、学会参加の計画、要旨・ポスター・発表の準備。
 ---
 
 # Local Laboratory Policy Workflow
@@ -15,9 +15,13 @@ description: Apply user-registered local laboratory policies when preparing auth
 
 Use for laboratory authorship, conference participation, or research presentation preparation when the user has registered a laboratory policy. Also use when adding or updating those policies.
 
+## Plugin paths
+
+`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
+
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 <plugin root>/tools/reo_profile.py` (standard library only; see *Plugin paths*), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Resolve the applicable policy
 

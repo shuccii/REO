@@ -1,6 +1,6 @@
 ---
 name: research-review-workflow
-description: Audit scientific research, constructively review theses or papers, evaluate research plans, and rehearse interim or thesis defenses with source-grounded validity checks and adaptive follow-up questions.
+description: Audit scientific research, constructively review theses or papers, evaluate research plans, and rehearse interim or thesis defenses with source-grounded validity checks and adaptive follow-up questions. 日本語での依頼例は、研究の点検・監査、論文や修論の査読、主張と根拠の確認、研究計画の評価、中間発表・修論発表の模擬質疑。
 ---
 
 # Research Review Workflow
@@ -15,9 +15,13 @@ description: Audit scientific research, constructively review theses or papers, 
 
 Use when asked to audit research, act as a demanding academic reviewer, evaluate a thesis or research plan, prepare for professor questions, or rehearse an interim/final defense. Support experimentally, theoretically, computationally, and literature-based research; use ML-specific checks only when applicable. This is evidence-based advisory review, not actual faculty approval, a degree decision, or a claim of professor-equivalent expertise.
 
+## Plugin paths
+
+`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
+
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 <plugin root>/tools/reo_profile.py` (standard library only; see *Plugin paths*), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Select the task and evidence
 
@@ -48,7 +52,7 @@ Read [assessment rubric](references/assessment-rubric.md) for every substantive 
 
 ## Output and validation
 
-Executable paths are relative to the plugin root (two directories above this skill), not the current workspace or skill folder.
+Run bundled tools and validators as `<plugin root>/...` from the user's workspace (see *Plugin paths*).
 
 For repeat reviews, include a continuity table linking prior finding/source, current evidence, status (new, known unresolved, partially improved, resolved, recurred, or unverified), and next verification. Do not claim resolution without new inspected evidence. This table supplements the formal JSON contract; it does not change its open/resolved gates.
 

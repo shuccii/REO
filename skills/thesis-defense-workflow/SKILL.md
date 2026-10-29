@@ -1,6 +1,6 @@
 ---
 name: thesis-defense-workflow
-description: Prepare a graduate student for a master's thesis defense (thesis writing, final presentation and oral examination) in science or engineering, with NAIST-specific milestones and criteria when applicable - confirmed facts, backward schedule, logical writing checks, reverse-designed slides, question bank with answer patterns, timed rehearsals and day-of checklist.
+description: Prepare a graduate student for a master's thesis defense (thesis writing, final presentation and oral examination) in science or engineering, with NAIST-specific milestones and criteria when applicable - confirmed facts, backward schedule, logical writing checks, reverse-designed slides, question bank with answer patterns, timed rehearsals and day-of checklist. 日本語での依頼例は、修論の執筆、発表までの工程表、発表スライドの点検、想定質問、口頭試問の練習、リハーサル。
 ---
 
 # Thesis Defense Workflow
@@ -19,9 +19,13 @@ Use when a student prepares a master's thesis, its final presentation, the oral 
 
 This workflow prepares drafts and practice. It never submits, uploads, registers or contacts faculty, never writes the thesis in place of the student unless AI drafting mode is enabled under its preconditions, and never predicts a pass. Use [research-review-workflow](../research-review-workflow/SKILL.md) for the substantive audit of claims and for interactive rehearsal. Use [lab-policy-workflow](../lab-policy-workflow/SKILL.md) and the user's local policy files for laboratory rules; never copy private rules into shared artifacts.
 
+## Plugin paths
+
+`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
+
 ## User profile
 
-At the start, run `python3 tools/reo_profile.py` from the plugin root (standard library only), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+At the start, run `python3 <plugin root>/tools/reo_profile.py` (standard library only; see *Plugin paths*), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
 
 ## Structure
 

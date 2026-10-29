@@ -15,7 +15,7 @@ Re.O は research-dev-orchestrator の略です。
 
 ## 導入
 
-このリポジトリは試用期間中は非公開です。招待された GitHub アカウントで、リポジトリを読めることを先に確認してください。
+次のコマンドで、GitHub から直接導入できます。
 
 ### Claude Code
 
@@ -206,7 +206,7 @@ python3 -B scripts/validate_research_review.py --json review-report.json
 
 ## フィードバック
 
-試用期間中は、このリポジトリの Issue(フォーム「スキルへのフィードバック」)で受け付けます。**Issue は開発者と、招待されたすべての試用者が読めます。** 会話の全文、研究データ、個人名、所属などは書かないでください。詳しくは [docs/FEEDBACK.md](docs/FEEDBACK.md) を見てください。
+このリポジトリの Issue(フォーム「スキルへのフィードバック」)で受け付けます。**Issue は公開され、誰でも読めます。** 会話の全文、研究データ、個人名、所属などは書かないでください。詳しくは [docs/FEEDBACK.md](docs/FEEDBACK.md) を見てください。
 
 ## 開発者向け
 
@@ -237,7 +237,7 @@ MIT License(`LICENSE` を参照)。
 
 ## バージョン
 
-現在の版は 0.12.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+現在の版は 0.12.1 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
 ## 謝辞
 
