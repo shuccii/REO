@@ -5,7 +5,7 @@ Example:
     python3 tools/reo_profile.py
     python3 tools/reo_profile.py --path ./profile.md
 
-Looks for $REO_PROFILE, then ~/.config/reo/profile.md. Prints JSON and always exits 0
+Looks for explicit --path, $REO_PROFILE, workspace/.reo/profile.md, then ~/.config/reo/profile.md. Prints JSON and always exits 0
 when the file is missing (`exists: false`), so callers can continue without a profile.
 Standard library only.
 """
@@ -34,11 +34,14 @@ METHOD_PROBES = [
 UNSET = {'', '未設定', 'なし', '-'}
 
 
-def resolve_path(explicit=None):
+def resolve_path(explicit=None, workspace=None):
     if explicit:
         return Path(explicit).expanduser()
     if os.environ.get('REO_PROFILE'):
         return Path(os.environ['REO_PROFILE']).expanduser()
+    project = Path(workspace or Path.cwd()).resolve() / ".reo" / "profile.md"
+    if project.is_file():
+        return project
     return DEFAULT_PATH.expanduser()
 
 
@@ -86,9 +89,10 @@ def load(path):
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Read the Re.O user profile.')
     parser.add_argument('--path', help='profile file (default: $REO_PROFILE or ~/.config/reo/profile.md)')
+    parser.add_argument('--workspace', help='project directory for .reo/profile.md')
     args = parser.parse_args(argv)
     try:
-        report = load(resolve_path(args.path))
+        report = load(resolve_path(args.path, args.workspace))
     except (OSError, UnicodeDecodeError) as error:
         report = {'exists': False, 'error': str(error)}
     print(json.dumps(report, ensure_ascii=False, indent=2))

@@ -244,3 +244,15 @@ systematic-debugging などの作業手順は、[Superpowers](https://github.com
 「この節だけ短く」はQuick、「原稿全体を点検」はStandard、「計算や根拠ファイルまで詳しく」はDeepとして扱います。既定はStandardです。どの経路でも、未計算の数値を断定せず、実際に読んだ範囲を示します。Quickは全体点検の代わりにはなりません。詳しくは[モードの基準](skills/research-review-workflow/references/modes.md)。
 
 比較評価の再現手順と使用量の記録は[ベンチマーク手順](docs/BENCHMARK.md)を参照してください。トークン/費用の削減率は、実モデルで比較するまで効果として表記しません。
+
+
+## 環境確認・一括点検・差分再レビュー
+
+利用者の作業フォルダから、次のように実行できます。`<plugin root>`をインストール先に置き換えてください。
+
+```bash
+python3 <plugin root>/tools/reo.py doctor
+python3 <plugin root>/tools/reo.py check draft.md --data data.csv --unit sample --split split --save .reo/check.json
+```
+
+列の役割は指定したものを使い、科学的妥当性の判定はレビューで行います。点検の事実を短く返し、`--save`の証拠は全件残します。プロジェクトの`.reo/profile.md`はグローバル設定より優先します。原稿改訂時の依存関係と使い方は[差分再レビュー](docs/INCREMENTAL_REVIEW.md)を参照してください。

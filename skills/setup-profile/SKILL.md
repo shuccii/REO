@@ -35,3 +35,7 @@ description: Interview the user in Japanese about their field, research methods,
 - Never write the profile inside the plugin folder.
 - Never store the user's credentials, student number, address, or the contents of lab rules.
 - Changing the profile does not change any past review; it applies to later work.
+
+## Project-local profiles
+
+For a project-specific setup, offer `<workspace>/.reo/profile.md`; keep the global `~/.config/reo/profile.md` as a fallback for users who prefer one shared profile. Use `reo.py profile --workspace <workspace>` to show the effective selection. Explicit path and REO_PROFILE override project defaults. Never overwrite an existing profile without confirmation and never save it inside the plugin.
