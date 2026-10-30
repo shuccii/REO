@@ -11,7 +11,11 @@ Re.O は research-dev-orchestrator の略です。
 
 実際の出力は [出力見本](docs/EXAMPLE.md) を見てください(架空の修論の抜粋を点検した記録です)。
 
-使い方は [動画(約79秒)](docs/video/reo-usage.mp4) で見られます。Claude Code の起動、頼み方、出力の読み方をまとめています。
+使い方の動画(約75秒)です。Claude Code の起動、頼み方、出力の読み方をまとめています。
+
+![Re.O の使い方](docs/video/reo-usage.gif)
+
+GitHub 上では mp4 を再生できないため、アニメーション画像で表示しています。mp4 は [ダウンロード](https://github.com/shuccii/REO/raw/main/docs/video/reo-usage.mp4) して再生してください。
 
 > 試用版です。出力は助言であり、指導教員の判断や承認、提出の可否の代わりにはなりません。
 
