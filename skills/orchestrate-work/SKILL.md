@@ -46,6 +46,10 @@ Copy these instructions directly into work/compute handoffs, alongside the task'
 - Read only relevant source ranges; use `rg`, head/tail or equivalent. Retain full command evidence in files and quote about five decisive output lines with their log paths. Broaden inspection for scope, integrity or a failed check.
 - Save the full structured result and supporting report/evidence at the supplied paths. Reply with the native status, a three-line result/check/concern summary and paths. Keep unresolved concerns in `risks`/`next_actions`; implementation awaiting required review is `needs_revision`, never self-approved `completed`.
 
+## Review routing by risk
+
+Before delegated/reviewed work, use `python3 <plugin root>/tools/review_routing.py --task-kind <kind>` with actual risks, observed reviewer availability and any hard budget. Read [review routing](references/review-routing.md) for the contract. Mechanical checks without consequential interpretation take the single-agent path; research/statistics/leakage/central claims and implementation changes retain independent semantic review and required strict contracts. Mode convenience never overrides these gates. The planner does not spawn agents, verify identities, enforce runtime spending or prove review completion. Missing resources leave integration pending; safe evidence acquisition may continue. Never infer actual reviewers from assigned identities.
+
 ## Route the work
 
 The lead owns the plan, final answer, validation rules, and integration. Delegate only bounded tasks with distinct outcomes and write scopes. Use at most three concurrent workers by default, and parallelize only when tasks have no dependency or write-scope conflict and coordination is likely to save time.

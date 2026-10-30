@@ -1,0 +1,2 @@
+# Small descriptive experiment (fictional)
+We independently measured three separately prepared samples: 1, 2 and 3 mS/cm. Their mean is 2 mS/cm and sample standard deviation is 1 mS/cm. We report descriptive observations only. This tiny convenience sample does not establish population precision, causal effects or superiority to another material. All values are shown; no inferential p-value or confidence interval is claimed. No model was trained and no train/test split applies.

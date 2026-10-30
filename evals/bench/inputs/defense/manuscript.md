@@ -1,0 +1,2 @@
+# Interim project summary (fictional)
+I am a master's student investigating how composition affects conductivity. Three pilot specimens have been measured and I am designing the independent validation experiment. My present claim is only feasibility of the measurement procedure, not material superiority. Please begin a realistic oral rehearsal by asking one question about my research and wait for my answer. Do not supply a model answer or feedback yet.

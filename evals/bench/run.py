@@ -32,6 +32,13 @@ PROMPTS = {
     'multi_hard': ('papers/ にある6つの原稿を、それぞれ査読者の立場で点検してください。原稿ごとの主な指摘、6本を比べる表、重大さによる優先順位をまとめ、'
                    'review_summary.md に日本語で保存してください。'),
 }
+PROMPTS.update({
+    'clean_short': PAPER,
+    'insufficient': PAPER,
+    'partial_pairing': PAPER + ' data.csvも確認してください。検定前に対応関係を確認してください。',
+    'cross_chapter': PAPER + ' 要旨・方法・結果・結論の整合を確認してください。',
+    'defense': 'manuscript.mdを読み、本番想定の模擬質疑を始めてください。一問だけ質問し、私の回答を待ってください。回答例やフィードバックはまだ出さないでください。',
+})
 COMMANDS = {
     ('reo-cmd', 'audit_hard'): '/reo:research-review-workflow ',
     ('reo-cmd', 'multi_hard'): '/reo:orchestrate-work ',

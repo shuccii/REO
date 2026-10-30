@@ -93,3 +93,14 @@ class ReoCliTests(unittest.TestCase):
             p=Path(d);(p/'d.md').write_text('# test');(p/'d.csv').write_text('id,y\na,"1\n')
             code,r=self.run_cli('check','d.md','--data','d.csv',cwd=d)
             self.assertEqual(code,2);self.assertIn('error',r)
+
+    def test_plan_preserves_review_gate_even_in_quick(self):
+        code,r=self.run_cli('plan','--mode','quick','--task','peer_review')
+        self.assertEqual(code,2);self.assertEqual(r['review_route']['assurance'],'research_strict')
+        self.assertFalse(r['review_route']['review_completed'])
+        code,r=self.run_cli('plan','--mode','quick','--available-reviewer','reviewer-1')
+        self.assertEqual(code,0);self.assertEqual(r['review_route']['actual_reviewers'],[])
+        self.assertEqual(r['review_route']['assigned_reviewers'],['reviewer-1'])
+    def test_route_mechanical_does_not_invoke_reviewers(self):
+        code,r=self.run_cli('route','--task-kind','mechanical')
+        self.assertEqual(code,0);self.assertEqual(r['route'],'single_agent')

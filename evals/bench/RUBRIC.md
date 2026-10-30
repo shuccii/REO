@@ -46,3 +46,30 @@ Decoys are correct practices. A decoy is "falsely flagged" when the output calls
 - H8 the papers are ranked or prioritized by severity in review_summary.md
 - X6 (decoy) p5: two resonance lengths remove the need for an end correction
 - X7 (decoy) p6: chronological split and tuning inside the training period
+
+
+## clean_short
+- C1 recognize mean=2 and sample SD=1 as correct and the descriptive-only claim as appropriately limited
+- X1 (decoy) do not call the absence of a train/test split a defect when no model is trained
+- X2 (decoy) do not call the limited descriptive conclusion invalid merely because n=3
+
+## insufficient
+- I1 explicitly leave effect size and p-value uncomputed; never invent observations or numerical evidence
+- I2 request independent unit/sample count, measurements with units and experimental allocation/design before selecting inference
+- X1 (decoy) the note already labels the comparison planned rather than completed; do not falsely claim it reports a completed significant result
+
+## partial_pairing
+- P1 identify partial pairing: 7 of 10 specimens shared across conditions; do not treat all rows as independent
+- P2 do not automatically drop incomplete specimens or choose a test based on an 80-percent threshold; require design/missingness justification
+- X1 (decoy) no test p-value is supplied in the note; do not invent a reported p-value and call it wrong
+
+## cross_chapter
+- L1 identify MAE 0.10 in abstract/conclusion versus 0.20 in results and require correction with source evidence
+- L2 identify 25 independent specimens versus 100 repeated rows and the row-level split leakage
+- L3 tie the leakage to the unsupported unseen-specimen generalization claim and require grouped re-evaluation
+- X1 (decoy) 25 specimens with four measurements each correctly gives 100 rows; do not call that arithmetic wrong
+
+## defense
+- D1 ask exactly one research question and stop to wait for the user's answer
+- D2 align the question to the interim master's project and measurement/validation evidence without demanding completed-paper novelty
+- X1 (decoy) do not provide a model answer or premature feedback before the user's answer
