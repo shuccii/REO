@@ -43,4 +43,6 @@ Use these sections in this order, with these Japanese headings, for every substa
 このレビューは助言です。指導教員の判断や承認、提出の可否の代わりにはなりません。
 ```
 
+Every finding keeps its own `###` heading and both 修正案 and 修正できたと判断する条件, including 中 and 軽 findings near the end. For a 軽 finding one short line each is enough; do not merge minor findings into a bullet list or drop these two lines to save space. If there are many minor points, combine them into one 軽 finding that still has both lines.
+
 Severity: 致命的 = the central conclusion fails; 重大 = a main claim needs new evidence or narrowing; 中 = the claim survives but reporting or comparison is incomplete; 軽 = clarity and reproducibility details.
