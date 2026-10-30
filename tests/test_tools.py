@@ -143,6 +143,21 @@ class CompareModelsTests(unittest.TestCase):
             path = self.write(directory, [[1, 0, 1, 1, 1]])
             self.assertEqual(run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'missing'])[0], 2)
 
+    def test_identical_predictions_do_not_report_significance(self):
+        from compare_models import main
+        rows = [[f'u{i}', i // 4, i + 0.1, i + 0.3, i + 0.3] for i in range(12)]
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write(directory, rows)
+            code, report = run(main, [str(path), '--truth', 'y', '--a', 'a', '--b', 'b',
+                                      '--fold', 'fold', '--task', 'regression', '--n-boot', '20'])
+        self.assertEqual(code, 0)
+        for metric in ('mae', 'rmse'):
+            result = report['corrected_resampled_t_test'][metric]
+            self.assertEqual(result['mean_difference'], 0.0)
+            self.assertEqual(result['p'], 1.0)
+            self.assertEqual(result['t'], 0.0)
+            self.assertFalse(report['paired_difference'][metric]['ci_excludes_zero'])
+
 
 def write_csv(directory, name, header, rows):
     path = Path(directory) / name
@@ -184,6 +199,28 @@ class AutoTestTests(unittest.TestCase):
         code, report = self.choose(['donor', 'time', 'y'], rows, '--value', 'y', '--condition', 'time', '--unit', 'donor')
         self.assertEqual(report['design'], 'paired')
         self.assertIn(report['test'], ('Paired t-test', 'Wilcoxon signed-rank'))
+
+    def test_partial_pairing_requires_design_confirmation(self):
+        for shared in (7, 8, 9):
+            for binary in (False, True):
+                with self.subTest(shared=shared, binary=binary):
+                    rows = [[f'u{i}', 'A', i % 2 if binary else i + 0.1] for i in range(10)]
+                    rows += [[f'u{i}', 'B', (i + 1) % 2 if binary else i + 0.2]
+                             for i in range(shared)]
+                    code, report = self.choose(['unit', 'cond', 'y'], rows, '--value', 'y',
+                                               '--condition', 'cond', '--unit', 'unit')
+                    self.assertEqual(code, 2)
+                    self.assertIn('partially paired', report['error'])
+                    self.assertNotIn('p', report)
+
+    def test_overlap_without_any_complete_units_is_not_independent(self):
+        rows = [[f'u{i}', c, i + offset + 0.1]
+                for i in range(6) for offset, c in enumerate(('AB', 'BC', 'AC')[i % 3])]
+        code, report = self.choose(['unit', 'cond', 'y'], rows, '--value', 'y',
+                                   '--condition', 'cond', '--unit', 'unit')
+        self.assertEqual(code, 2)
+        self.assertIn('partially paired', report['error'])
+        self.assertNotIn('p', report)
 
     def test_unequal_variances_with_three_groups(self):
         import random

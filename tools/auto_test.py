@@ -6,8 +6,9 @@ Example:
     python tools/auto_test.py data.csv --value migration --condition treatment --unit donor
 
 The CSV is in long format: one row per measurement. --unit names the independent unit (sample,
-donor, film). Replicate rows of the same unit and condition are averaged first. The design is
-paired when most units were measured under every condition. The test is chosen from the design
+donor, film). Replicate rows of the same unit and condition are averaged first. Auto detection
+requires either complete pairing or no overlap between conditions; partial pairing requires
+design confirmation before a test is run. The test is chosen from the design
 (paired or independent, number of conditions), the data type (continuous or binary), the sample
 size and diagnostic checks (normality of residuals or differences, equal variances). The decision
 path, the test result, an effect size and the alternatives considered are reported as JSON.
@@ -274,7 +275,12 @@ def analyse(rows, value, condition, unit=None, design='auto'):
     units = sorted({u for u, _ in cells})
     complete = [u for u in units if all((u, c) in cells for c in names)]
     if design == 'auto':
-        design = 'paired' if unit and len(complete) >= 0.8 * len(units) and len(complete) >= 2 else 'independent'
+        if unit and len(cells) > len(units) and len(complete) != len(units):
+            raise ValueError('partially paired data: confirm the study design before testing. '
+                             'Use --design paired only if a complete-case analysis is justified; '
+                             'otherwise use a method that accounts for the partial pairing. '
+                             'Do not treat overlapping units as independent groups.')
+        design = 'paired' if unit and len(complete) == len(units) and len(complete) >= 2 else 'independent'
         path.append(f'Design: {design} ({len(complete)} of {len(units)} units measured under every condition).')
     if design == 'paired':
         if len(complete) < len(units):

@@ -93,8 +93,13 @@ def corrected_t_test(rows, truth, a, b, fold, name, test_fraction):
         return None
     ratio = test_fraction / (1 - test_fraction)
     variance = (1 / k + ratio) * d.var(ddof=1)
-    t = float(d.mean() / math.sqrt(variance)) if variance > 0 else float('inf') * np.sign(d.mean())
-    p = float(2 * stats.t.sf(abs(t), df=k - 1)) if math.isfinite(t) else 0.0
+    if np.all(d == 0):
+        # No observed fold difference: avoid inf * 0 -> NaN -> p=0.
+        # This convention does not establish equivalence of the models.
+        t, p = 0.0, 1.0
+    else:
+        t = float(d.mean() / math.sqrt(variance)) if variance > 0 else float('inf') * np.sign(d.mean())
+        p = float(2 * stats.t.sf(abs(t), df=k - 1)) if math.isfinite(t) else 0.0
     return {'n_folds': k, 'test_fraction': round(test_fraction, 4), 'mean_difference': float(d.mean()),
             't': round(t, 4) if math.isfinite(t) else None, 'df': k - 1, 'p': p,
             'naive_p_uncorrected': float(stats.ttest_1samp(d, 0).pvalue) if d.var() > 0 else None}

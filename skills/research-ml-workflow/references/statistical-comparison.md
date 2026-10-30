@@ -16,6 +16,8 @@ Rules for automatic choice:
 
 - The choice depends on the **design** (independent unit, pairing, number of conditions, data type) first, and on diagnostics (normality of standardized residuals or differences, equal variances, sample size) second. Name the independent unit with `--unit` / `--group`; without it every row is treated as independent.
 - Run the selector once, before interpreting results. Do not switch to another test because its p-value is smaller. If there is a domain reason to override the choice (an established method in the field, a pre-registered plan), state the reason and report the selector's choice alongside.
+- With `--unit`, `auto_test.py` stops with exit code 2 for partial pairing, including overlap among only some of three or more conditions. Confirm the design; use `--design paired` only when complete-case analysis is justified (excluded units are reported). Overlapping units must not be forced into independent groups.
+- When all fold-level model differences are exactly zero, `compare_models.py` reports `t=0, p=1` by convention. This means no observed difference in those fold metrics, not evidence of equivalence.
 - The tools cover the common designs. For nested or crossed random effects, censored data (survival), counts with overdispersion, or spatial/temporal autocorrelation, they say so only indirectly: use a mixed model, survival analysis, a GLM or a spatial model, and note that the tools did not apply.
 
 ## 1. Decide before testing
@@ -40,7 +42,7 @@ Write these down before looking at the comparison:
 | "No meaningful difference" | Equivalence test (TOST) against the practical threshold | Reading p > 0.05 as "no difference" |
 | Small samples (n < 10 units) | Report every value and an exact or bootstrap interval; state that tests have little power (`tools/power.py`) | A single p-value as the main evidence |
 
-For two regression models, run `<plugin root>/tools/compare_models.py` from the user's workspace. It gives the paired bootstrap CI, Wilcoxon test, paired effect size, the corrected resampled t-test with `--fold`, and the comparison with measurement repeatability with `--replicates`. Give `--group` whenever rows are not independent units. For repeated k-fold CV, pass `--test-fraction`.
+For two regression models, run `tools/compare_models.py` from the plugin root. It gives the paired bootstrap CI, Wilcoxon test, paired effect size, the corrected resampled t-test with `--fold`, and the comparison with measurement repeatability with `--replicates`. Give `--group` whenever rows are not independent units. For repeated k-fold CV, pass `--test-fraction`.
 
 ## 3. Variation and error
 
