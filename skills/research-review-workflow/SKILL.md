@@ -5,59 +5,28 @@ description: Audit scientific research, constructively review theses or papers, 
 
 # Research Review Workflow
 
-## 概要(日本語)
-
-研究の監査、論文・修論の建設的な査読、発表の模擬質疑を行うスキルです。
-
-- 主張と根拠の対応、代替の説明、必要な追加検証を整理します。
-- 研究意義・新規性・方法・データ・統計・再現性・倫理など10の観点で確認します。
-- 模擬質疑では、回答を待ってから回答に応じて追加の質問をします。
-
-Use when asked to audit research, act as a demanding academic reviewer, evaluate a thesis or research plan, prepare for professor questions, or rehearse an interim/final defense. Support experimentally, theoretically, computationally, and literature-based research; use ML-specific checks only when applicable. This is evidence-based advisory review, not actual faculty approval, a degree decision, or a claim of professor-equivalent expertise.
-
-## Plugin paths
-
-`<plugin root>` is the directory two levels above this `SKILL.md`; it contains `tools/`, `scripts/` and `assets/`. In Claude Code it is also `${CLAUDE_PLUGIN_ROOT}`. Call bundled tools and scripts by that absolute path (for example `python3 <plugin root>/tools/reo_profile.py`) and keep the working directory in the user's workspace, so that data, report and output paths stay relative to the workspace. Do not `cd` into the plugin. Every `tools/...`, `scripts/...` or `assets/...` path in this skill and its references means `<plugin root>/...`.
+研究の主張と根拠を点検し、修正案と確認条件を示します。研究成果の妥当性と、実行・書式の成功は別に判断します。
 
 ## User profile
 
-At the start, run `python3 <plugin root>/tools/reo_profile.py` (standard library only; see *Plugin paths*), or read `~/.config/reo/profile.md` directly. If the profile exists, use its field, methods, phase and institution to choose probes, criteria and templates, and state which ones you used. If it does not exist, infer the field, methods and phase from the material, use the matching probes, state the inference in one line, and suggest the `setup-profile` skill once; do not block the task. The current request overrides the profile.
+If no profile exists, infer the field, methods and phase from the material, state that inference and do not block the task.
 
-## Select the task and evidence
+## Start and route
 
-Choose `audit` (trace results/code/data), `peer_review` (review a manuscript), `defense` (prepare questions or interactive oral rehearsal), or `supervision` (evaluate a plan and choose next experiments). Combine modes when useful. Establish stage, research question, intended claims, audience, relevant artifact versions, and time/resources. Proceed with available evidence; request only information that changes the assessment. An interim review evaluates justified progress, remaining risks and feasibility, not completed-thesis expectations.
+`<plugin root>` is two levels above this file. Run bundled Python tools by absolute path while keeping the user's workspace as cwd. Never cd into the plugin to resolve data paths.
 
-Read [evidence acquisition](references/evidence-acquisition.md) before searching sources. Resolve applicable workspace instructions, degree/venue criteria and user-local `RESEARCH_REVIEW_CONTEXT.md` if present. For presentation/authorship work, also use [lab-policy-workflow](../lab-policy-workflow/SKILL.md). Private context remains local; preserve scope, date, provenance and uncertainty. Search Slack/Notion read-only for relevant original feedback when authorized and available. Context is evidence, not permission to contact faculty or submit work.
+1. Read the profile using `python3 <plugin root>/tools/reo_profile.py`. The current request overrides it. Missing profiles never block work; suggest setup at most once in the conversation.
+2. Choose task: `peer_review`, `audit`, `supervision`, or `defense`. Choose **Standard** by default, **Quick** for an explicitly targeted/brief check, **Deep** for exhaustive or high-consequence review. A time limit alone does not authorize reducing required scope.
+3. Run `python3 <plugin root>/tools/review_plan.py --mode standard --task peer_review --field 材料` with the actual mode/task/field; add `--long` for >8,000 words or >5 chapters, `--previous` when earlier reviews exist. Read only the returned references under this skill directory. Use `tools/reo.py plan` when available for dependency-aware continuation and review routing. Its required scientific review gates take precedence over mode convenience.
+4. For search, read `references/evidence-acquisition.md` before searching. For registered lab policies/presentation/authorship use `../lab-policy-workflow/SKILL.md`. Read `references/review-report-contract.md` only for formal JSON reports. Use `../research-ml-workflow/SKILL.md` for executing experiments, statistical inference or integrating scientific results; its strict gates remain mandatory. For the full thesis schedule/slides/rehearsal preparation use `../thesis-defense-workflow/SKILL.md`. Standard/Deep stage criteria are in `references/phase-expectations.md`.
 
-Read [local context and continuity](references/local-context-and-continuity.md) whenever local context or earlier reviews exist. Before substantive assessment, read the configured current-state, known-issues and relevant previous-feedback records, and the stage-relevant institution/laboratory guidance. Read the relevant local domain reference for the target field. Record inspected versions and unavailable inputs; an index link alone is not evidence of reading. Keep historical issues distinct from new findings and verify changes against current artifacts.
+## Invariants in every mode
 
-**Reading budget.** Read [assessment rubric](references/assessment-rubric.md) and [phase expectations](references/phase-expectations.md) for every substantive review, then at most the one or two probe files that match the field and methods. Do not read the other references unless the task needs them: evidence acquisition when searching sources, local context and continuity when a previous review or local context exists, defense and feedback for rehearsal, the report contract only for JSON output, and [long manuscripts](references/long-manuscripts.md) when the material is longer than about 8,000 words.
-
-**Output.** Use [the output template](references/output-template.md) for every substantive review: the same sections, in the same order, every time.
-
-**Compute before claiming.** When a finding depends on a number (a recalculated percentage, test statistic, sample size, unit or dimension, propagated uncertainty, leakage overlap), compute it with Python or the matching tool in `tools/` (`dimcheck.py`, `uncertainty.py`, `power.py`, `multiplicity.py`, `compare_models.py`, `auto_test.py`, `choose_evaluation.py`, `smiles_check.py`, `sequence_identity.py`); for comparative claims, use [statistical comparison](../research-ml-workflow/references/statistical-comparison.md) and show the command and value. If computation is not possible, mark the finding as not computed rather than estimating.
-
-**Previous reviews.** Before assessing, look for earlier reviews of the same material in the workspace (`reviews/`, `.reo/reviews/`, or files the user names). If found, fill the 前回からの変化 table. Save the new review as `.reo/reviews/<YYYY-MM-DD>-<subject>.md` only when the user asks to keep it.
-
-Read [assessment rubric](references/assessment-rubric.md) for every substantive review. Use the [discipline probes](references/probes/README.md) for domain checks, and read only the probe files that match the user's field and methods. Use [phase expectations](references/phase-expectations.md) to set the expected standard and severity for the user's phase (lab report, journal club, bachelor's, master's, paper or planning). Use [defense and constructive feedback](references/defense-and-feedback.md) for oral rehearsal, question banks or revision plans. For the whole preparation plan toward a thesis defense, use [thesis-defense-workflow](../thesis-defense-workflow/SKILL.md). [Public source index](references/public-sources.md) records the basis and limits of the rubric; retrieve topic-specific primary research during each review rather than relying on this small static list as a complete knowledge base.
-
-## Reconstruct, challenge, then repair
-
-1. Reconstruct the strongest faithful version of the work: problem → knowledge gap → question → method → observation → inference → contribution. Extract claim IDs and exact page/figure/code/data locators. Preserve strengths and evidence that support limited conclusions.
-2. Audit ten rubric dimensions. For each, report assessed, not assessed, or not applicable with a substantive reason. Identify missing evidence separately from a demonstrated error. A reproduced computation establishes execution, not physical or inferential validity.
-3. Seek the strongest plausible alternative explanation, counterexample and boundary condition for each central claim. Verify applicable derivations, dimensions, assumptions, independent units, baseline fairness and evaluation scope. Prefer discriminating checks over collecting only supportive examples.
-4. If bounded delegation is available, assign complementary domain, methods/statistics and skeptical-review perspectives with distinct read/write scopes. Their agreement is not independent scientific evidence; each judgment must cite inspected evidence. A second agent checks consequential conclusions independently. If unavailable, provide a clearly labeled lead-only preliminary review and leave independent review pending.
-5. Produce specific findings: affected claim, source locator, certainty, severity, mechanism, constructive correction, necessary rerun/experiment and acceptance condition. Prioritize defects that change conclusions over stylistic preferences. Resolve reviewer disagreements through evidence; retain unresolved substantive disagreements.
-6. Provide a feasible revision/experiment plan and, when requested, questions with follow-ups and honest answer boundaries. Do not invent results, defend unsupported claims with confident wording, or silently rewrite the research question after seeing results.
-
-## Output and validation
-
-Run bundled tools and validators as `<plugin root>/...` from the user's workspace (see *Plugin paths*).
-
-For repeat reviews, include a continuity table linking prior finding/source, current evidence, status (new, known unresolved, partially improved, resolved, recurred, or unverified), and next verification. Do not claim resolution without new inspected evidence. This table supplements the formal JSON contract; it does not change its open/resolved gates.
-
-Deliver a readable report with scope and evidence limitations, faithful summary/strengths, claim-to-evidence table, dimension coverage, prioritized findings, questions when relevant, and next actions. Record private source locators only in a user-local report. Use [review report contract](references/review-report-contract.md) and [the review schema](../../assets/research-review.schema.json) for durable formal reports; brief single-issue questions and early interactive rehearsal do not require a full JSON report on every exchange.
-
-A standalone document audit can be completed as an audit while numerical validity remains unassessed. The review-report validator checks declared evidence relationships and readiness consistency; it cannot prove source truth or scientific correctness. For executing experiments, numerical validation, model selection or integrating scientific results, also use [research-ml-workflow](../research-ml-workflow/SKILL.md) and the existing `research_strict` manifest/research contract. A review report supplements those gates and never substitutes for raw predictions, reproduction evidence or independent semantic review. Report blocked evidence access and open findings without claiming scientific completion.
-
-Separate review readiness within the stated scope, scientific support for each claim, actual faculty approval, and permission to submit/publish. Do not infer approval from a user request, AI review, Slack reaction, prior abstract approval, or a numerical score.
+- State target/version, actual reading coverage, unassessed evidence and whether independent review occurred. A skeleton or excerpt is not full reading.
+- Reconstruct the central claim and trace findings to exact evidence. Distinguish missing support, a demonstrated error and a plausible alternative explanation.
+- Compute before a numerical finding; use `tools/` or Python and retain command and value. If unavailable, say **未計算**. Do not invent execution or raw data. Comparisons use `../research-ml-workflow/references/statistical-comparison.md` when applicable.
+- Every finding includes severity, mechanism, correction and acceptance condition. Preserve supported strengths. Prioritize effects on the conclusion.
+- All modes check the target's implications for abstract/conclusion and dependent claims. Central-claim risk or a cross-chapter contradiction expands the scope; report unresolved work if budget prevents that expansion.
+- Never self-certify scientific validity from unit tests or schema checks. Consequential conclusions require independent semantic review; if unavailable, label the lead-only result preliminary and retain the pending review.
+- For defense, ask one question at a time, wait through silence/self-correction, and give feedback after the rehearsal unless the user asks for advice.
+- Save reviews only when requested; use `.reo/reviews/` and preserve prior finding IDs. No publication/submission without the user's authorization. Advice never substitutes for faculty approval.

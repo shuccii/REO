@@ -237,3 +237,10 @@ MIT License(`LICENSE` を参照)。
 ## 謝辞
 
 systematic-debugging などの作業手順は、[Superpowers](https://github.com/obra/superpowers) の考え方を参考にしています。
+
+
+## 点検の深さを選ぶ
+
+「この節だけ短く」はQuick、「原稿全体を点検」はStandard、「計算や根拠ファイルまで詳しく」はDeepとして扱います。既定はStandardです。どの経路でも、未計算の数値を断定せず、実際に読んだ範囲を示します。Quickは全体点検の代わりにはなりません。詳しくは[モードの基準](skills/research-review-workflow/references/modes.md)。
+
+比較評価の再現手順と使用量の記録は[ベンチマーク手順](docs/BENCHMARK.md)を参照してください。トークン/費用の削減率は、実モデルで比較するまで効果として表記しません。
