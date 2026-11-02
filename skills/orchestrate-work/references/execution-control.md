@@ -2,6 +2,21 @@
 
 Read this for delegated/reviewed runs, repair loops and final integration. It applies the v0.3 JSON contracts to Codex tools. It does not require any other plugin or agent names to be installed.
 
+## Bounded local execution (0.17–0.19)
+
+For an approved explicit command graph, use [the execution contract](../../../docs/EXECUTION.md)
+and `<plugin root>/tools/reo.py execute`. Freeze minimal deliverables and stop conditions;
+separate implementation verification from optional efficacy experiments. Do not add
+repetitions, model comparisons or benchmarks beyond the agreed scope. Reserve review
+and consistency work before launching implementation. Missing or exceeded observed
+usage stops further work; do not substitute tool counts for LLM calls. Opaque provider
+costs are not hard-capped by this local tool. Host-specific model receipt adapters
+and observed independent reviewer identities must be supplied by the caller.
+
+On restart, reuse only verified mechanical evidence, retain failed/retried usage,
+and rerun semantic gates. A running interrupted stage has unknown usage and cannot
+be silently retried. Never reset its budget by discarding the checkpoint.
+
 ## Task handoff and status routing
 
 Give a worker the task goal, acceptance criteria, input artifact versions, permitted writes/tools, necessary references, output path, budget and stop condition. Include prior findings and report paths on repairs. Supply enough context for a fresh worker, without copying the whole conversation or unrelated skills.

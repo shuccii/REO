@@ -18,6 +18,7 @@ from reo_profile import load,resolve_path
 from review_plan import plan
 from review_state import build,compare
 from review_routing import route_review,TASK_KINDS,RISK_KINDS
+from execution import execute
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -109,11 +110,18 @@ def main(argv=None):
     r=sub.add_parser('plan');r.add_argument('--mode',choices=['quick','standard','deep'],default='standard');r.add_argument('--task',choices=['audit','peer_review','defense','supervision'],default='peer_review');r.add_argument('--field',default='');r.add_argument('--long',action='store_true');r.add_argument('--previous',action='store_true');r.add_argument('--available-reviewer',action='append');r.add_argument('--risk',choices=RISK_KINDS,action='append',default=[]);r.add_argument('--budget-json')
     routing=sub.add_parser('route');routing.add_argument('--task-kind',choices=TASK_KINDS,default='unknown');routing.add_argument('--mode',choices=['quick','standard','deep'],default='standard');routing.add_argument('--risk',choices=RISK_KINDS,action='append',default=[]);routing.add_argument('--available-reviewer',action='append');routing.add_argument('--budget-json')
     state=sub.add_parser('state');state.add_argument('graph');state.add_argument('--workspace',default='.');state.add_argument('--context');state.add_argument('--previous');state.add_argument('--save')
+    execution=sub.add_parser('execute',help='Run only explicit trusted commands with budgets and retained evidence')
+    execution.add_argument('plan');execution.add_argument('--workspace',default='.')
+    execution.add_argument('--save',required=True);execution.add_argument('--resume',action='store_true')
     a=p.parse_args(argv);code=0
     try:
         if a.command=='doctor':
             result=doctor(a.workspace);code=0 if result['python']['supported'] else 1
         elif a.command=='profile':result=load(resolve_path(a.path,a.workspace))
+        elif a.command=='execute':
+            result=execute(json.loads(Path(a.plan).read_text()),a.workspace,
+                           Path(a.workspace)/a.save,resume=a.resume,protected=[a.plan])
+            code=0 if result['status']=='completed' else 2
         elif a.command in ('plan','route'):
             routing=route_review(task_kind='research' if a.command=='plan' else a.task_kind,mode=a.mode,risks=a.risk,available_reviewers=a.available_reviewer,budget=json.loads(a.budget_json) if a.budget_json else None)
             result=plan(**{k:getattr(a,k) for k in ('mode','task','field','long','previous')}) if a.command=='plan' else routing

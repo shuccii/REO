@@ -15,6 +15,13 @@ description: Build, execute, validate, and communicate research or analysis with
 
 Use this skill when the user asks for machine-learning research, experiment execution, result validation, interpretation, figures, or slides.
 
+Separate a minimal implementation request from efficacy evaluation. Stop after the
+agreed deliverables and acceptance checks; propose additional experiments separately.
+Do not autonomously add repetitions or expensive comparisons. For explicit approved
+command graphs, use [bounded execution and restart](../../docs/EXECUTION.md); reserve
+review budget, retain raw outputs/diagnostics, and stop when usage is unknown or
+exceeds the agreed limit. This does not waive any research-strict gate below.
+
 For laboratory authorship, conference plans, abstracts, posters, or research presentations, also read [lab-policy-workflow](../lab-policy-workflow/SKILL.md) and resolve any applicable user-local policy before planning the deliverable. Scientific validation does not replace faculty review, rehearsal, or presentation approval required by that policy.
 
 Automatically use the `research_strict` assurance profile. Start from a v0.3 research contract: research question, target definition, sample and independence units, allowed sources, claim scope, split strategy, selection protocol, compute budget, and final deliverable. Read [the strict validation guide](references/research-strict.md) before planning or validating the run. Do not infer an unsupported causal claim from predictive performance.

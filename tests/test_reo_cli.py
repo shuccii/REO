@@ -6,6 +6,30 @@ class ReoCliTests(unittest.TestCase):
     def run_cli(self,*args,cwd=None):
         p=subprocess.run([sys.executable,str(ROOT/'tools/reo.py'),*args],cwd=cwd,capture_output=True,text=True)
         return p.returncode,json.loads(p.stdout)
+    def test_execute_example_and_verified_restart_are_zero_model(self):
+        import shutil
+        with tempfile.TemporaryDirectory() as d:
+            for source in (ROOT/'examples/bounded-execution').iterdir():
+                shutil.copyfile(source,Path(d)/source.name)
+            code,result=self.run_cli('execute','plan.json','--save','.reo/run.json',cwd=d)
+            self.assertEqual(code,0);self.assertEqual(result['usage']['llm_calls'],0)
+            self.assertEqual(result['usage']['cost_usd'],0)
+            code,result=self.run_cli('execute','plan.json','--save','.reo/run.json','--resume',cwd=d)
+            self.assertEqual(code,0);self.assertEqual(result['reused'],['count'])
+    def test_execute_protects_plan_and_checkpoint(self):
+        import shutil
+        with tempfile.TemporaryDirectory() as d:
+            for source in (ROOT/'examples/bounded-execution').iterdir():
+                shutil.copyfile(source,Path(d)/source.name)
+            original=(Path(d)/'plan.json').read_text()
+            code,result=self.run_cli('execute','plan.json','--save','plan.json',cwd=d)
+            self.assertEqual(code,2);self.assertIn('error',result)
+            self.assertEqual((Path(d)/'plan.json').read_text(),original)
+    def test_execute_invalid_json_is_structured_error(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d)/'plan.json').write_text('{broken')
+            code,result=self.run_cli('execute','plan.json','--save','run.json',cwd=d)
+            self.assertEqual(code,2);self.assertIn('error',result)
     def test_doctor_reports_dependencies_without_installing(self):
         code,r=self.run_cli('doctor');self.assertIn('python',r);self.assertIn('dependencies',r)
         self.assertIn('plugin_version',r);self.assertIn(code,(0,1))

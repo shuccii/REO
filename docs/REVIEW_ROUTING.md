@@ -1,5 +1,10 @@
 # Risk-based review routing (0.16)
 
+For bounded execution of a host-approved plan, see [execution and restart](EXECUTION.md)
+(0.17–0.19). This router remains a stateless planning helper; the executor does not
+authenticate actors or replace scientific gates. The host translates risk routing
+into declared stages and supplies a receipt adapter for its model provider.
+
 `tools/review_routing.py` provides a deterministic, standard-library-only review
 plan. It does not call an LLM, start an agent, validate a scientific result, or
 prove that review happened. Keep its output separate from v0.3 manifest/result

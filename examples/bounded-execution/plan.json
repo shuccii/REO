@@ -1,0 +1,14 @@
+{
+  "context": {"model": "none", "environment": "local-python", "mode": "quick"},
+  "inputs": ["input.txt", "adapter.py"],
+  "limits": {"seconds": 20, "llm_calls": 0, "tokens": 0, "cost_usd": 0},
+  "allow_experiments": false,
+  "max_experiments": 0,
+  "retry_limit": 0,
+  "stages": [{
+    "id": "count", "kind": "mechanical", "actor": "local-python",
+    "depends_on": [], "command": ["python3", "adapter.py"],
+    "outputs": ["result.json"], "timeout": 5,
+    "estimate": {"llm_calls": 0, "tokens": 0, "cost_usd": 0}
+  }]
+}

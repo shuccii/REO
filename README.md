@@ -238,7 +238,7 @@ MIT License(`LICENSE` を参照)。
 
 ## バージョン
 
-現在の版は 0.13.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+現在の版は 0.19.0 です。変更の要点は [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
 ## 謝辞
 
@@ -269,3 +269,22 @@ python3 <plugin root>/tools/reo.py check draft.md --data data.csv --unit sample 
 定型の点検は単独で行い、結論・統計設計・データ漏洩・実装変更などには独立した確認を割り当てます。Quickでも必須確認は省略しません。予算や確認役の不足は明示し、計画を作っただけで確認完了とは報告しません。[分担と予算の基準](docs/REVIEW_ROUTING.md)にCLI例があります。
 
 正常な原稿、情報不足、部分対応、章間矛盾、模擬質疑の開始を扱う[追加評価課題](docs/EVALUATION_CASES.md)も用意しました。実モデルでの精度・費用削減はこれから測定する項目です。
+
+## 実行範囲・予算を守り、証跡から再開する
+
+最小実装と効果検証を分け、承認済みの工程・追加実験上限・レビュー予算を実行前に固定できます。
+使用量が不明なら次の工程へ進まず、中断後も過去の消費を引き継ぎます。再利用はhashが一致する
+機械的証跡に限り、独立レビューと全体整合確認は毎回行います。
+
+```bash
+python3 <plugin root>/tools/reo.py execute plan.json --workspace . --save .reo/run.json
+python3 <plugin root>/tools/reo.py execute plan.json --workspace . --save .reo/run.json --resume
+```
+
+POSIX用のローカルexecutorです。モデル呼出しには実行環境に合うreceipt adapterが必要です。
+費用・tokenは事前見積りと工程終了後の実測による制御で、提供元側の厳密な上限ではありません。
+コマンドは信頼するものだけを指定します。詳しくは[実行と再開](docs/EXECUTION.md)。
+
+[機構別評価](docs/MEASUREMENT.md)では、固定条件の比較計画とオフライン集計を作れます。
+失敗・再試行分も費用へ含め、未計測を0とせず、1因子だけが異なる組合せを比較します。
+実モデルでの一般的な費用削減・品質の非劣性は、機能を実装しただけでは確認できません。
